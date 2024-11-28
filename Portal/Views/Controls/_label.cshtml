@@ -1,0 +1,12 @@
+﻿@using Weblib.Models.Common
+@using Weblib.Models.Common.Enums
+<label class="@(!string.IsNullOrEmpty(((TextboxModel)Model).Class)?((TextboxModel)Model).Class:"label")">
+    @if (((TextboxModel)Model).Type == TextboxType.LinkedLabel)
+    {
+        <a href="@Lib.Tools.Utils.URLHelper.GetUrl("LabControl/Holding/"+((TextboxModel)Model).HtmlValue)" target="_blank">@Html.Raw(((TextboxModel)Model).Value)</a>
+    }
+    else
+    {
+        @Html.Raw(((TextboxModel)Model).Value)
+    }
+</label>

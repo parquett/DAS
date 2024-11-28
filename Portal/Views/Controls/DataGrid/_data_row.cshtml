@@ -1,0 +1,26 @@
+﻿@using Lib.Tools.Utils;
+@using Weblib.Models.Common
+<div class="data-grid-data-row data-grid-data-row-@(((Lib.Tools.BO.ItemBase)Model).Id)"> 
+    <div class="data-grid-data controls">
+        @if (((Lib.Tools.BO.ItemBase)Model).Id != 0)
+        {
+            <a class="control_save" onclick=" return save_item(@(((Lib.Tools.BO.ItemBase)Model).Id)) " href="#"></a>
+            <a class="control_edit" onclick=" return edit_item(@(((Lib.Tools.BO.ItemBase)Model).Id)) " href="#"></a>
+            <a class="control_delete" onclick=" return delete_item(@(((Lib.Tools.BO.ItemBase)Model).Id)) " href="#"></a>
+        }
+        else
+        {
+            <a class="control_save control_add" onclick=" return add_item()" href="#"></a>
+        }
+    </div>    
+    <div class="data-grid-data">@(((Lib.Tools.BO.ItemBase)Model).Id!=0?((Lib.Tools.BO.ItemBase)Model).Id.ToString():"")</div>   
+    @foreach (Lib.AdvancedProperties.AdvancedProperty property in (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"])
+    {
+        @:<div class="data-grid-data"> 
+            object lControlModel=property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue(Model), property, (Lib.Tools.BO.ItemBase)Model);
+            @Html.PartialAsync("../Controls/Generic/"+property.ControlView,lControlModel).Result 
+        @:</div>
+    }     
+    <div class="data-grid-data">@(((Lib.Tools.BO.ItemBase)Model).DateCreated!=DateTime.MinValue?((Lib.Tools.BO.ItemBase)Model).DateCreated.ToString("dd/MM/yyyy HH:mm"):DateTimeZone.Now.ToString("dd/MM/yyyy HH:mm"))</div>  
+    <div class="data-grid-data">@(((Lib.Tools.BO.ItemBase)Model).CreatedBy!=null?((Lib.Tools.BO.ItemBase)Model).CreatedBy.Login:"")</div>  
+</div>

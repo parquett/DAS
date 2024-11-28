@@ -1,0 +1,71 @@
+﻿@using Weblib.Models
+@using SecurityCRMweblib.Enums
+@{
+    Layout = "~/Views/Master/_Standard.cshtml";
+    var Dashboard = ViewData["Dashboard"] is DashboardEnum?(DashboardEnum)ViewData["Dashboard"]: DashboardEnum.None;
+}
+<script>
+var gDashboardType = @((long)Dashboard);
+@Html.Partial("Controls/_Chart")
+</script>
+
+<div class="content_body">
+    <div class="content_body_left">
+        <div class="dashboard-icons-top">
+            @Html.Partial("_icons")
+        </div>
+        <div class="dashboard-icons">
+            @if (Dashboard == DashboardEnum.UserAnmin)
+            {
+                @Html.Partial("_UserList")
+            }
+            else if(Dashboard == DashboardEnum.Incident)
+            {
+                @Html.Partial("_IncidentsList")
+            }
+            else if (Dashboard == DashboardEnum.Registry)
+            {
+                @Html.Partial("_RequestList")
+            }
+            else if (Dashboard == DashboardEnum.RegistryAnimals)
+            {
+                @Html.Partial("_RequestAnimalsList")
+            }
+            else if (Dashboard == DashboardEnum.ANSA)
+            {
+                @Html.Partial("_ANSARequestList")
+            }
+            else if (Dashboard == DashboardEnum.Section)
+            {
+                @Html.Partial("_InvestigationList")
+            }
+            else if (Dashboard == DashboardEnum.Protocol)
+            {
+                @Html.Partial("_ProtocolList")
+            }
+            else if (Dashboard == DashboardEnum.MilkManagement)
+            {
+                @Html.Partial("_MilkManagementList")
+            }
+            else if (Dashboard == DashboardEnum.Patient)
+            {
+                @Html.Partial("_PatientRequestList")
+            }
+            
+        </div>
+    </div>
+    
+    <div class="content_body_right">
+        <div class="dashboard-diag">
+            <div class="dashboard-diag-container">
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="dashboard-icons-top">
+    @Html.Partial("_icons")
+</div>*@
+
+
+@*<div id="dashboard_diag_separator" class="clear" style="display:none"></div>*@
+<div class="clear" style="height:1px"></div>

@@ -1,0 +1,132 @@
+@using SecurityCRM
+@using Lib.BusinessObjects.Translations;
+@using WebLib.UI
+@using Lib.BusinessObjects
+@using Lib.Tools.Utils
+@using lib;
+@{
+    var context = HttpContextHelper.Current;
+    var currentLanguage = Language.Current();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Images/favicon.png" rel="shortcut icon" type="image/png" />
+    <script type="text/javascript">
+        var gRootUrl = '@Lib.Tools.Utils.URLHelper.GetUrl("")';
+        var gCurrentLanguage = @(currentLanguage != null && currentLanguage.Id > 0 ? currentLanguage.Id : Language.Romanian.Id);
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/common.css")" rel="stylesheet"/>
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/jquery.fancybox.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-buttons.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-thumbs.css")" rel="stylesheet" />
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/themes/base/jquery-ui.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/themes/base/jquery.ui.datepicker.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/full.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/jquery/tooltipster.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/jquery/tooltipster-light.css")" rel="stylesheet" />
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/back_common.css")" rel="stylesheet" />
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/jvectormap/jquery-jvectormap-1.2.2.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/bootstrap.css")" rel="stylesheet"/>
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/AdminLTE.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/skins/_all-skins.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/iCheck/flat/blue.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/morris/morris.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/datatables/dataTables.bootstrap.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/datepicker/datepicker3.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/daterangepicker/daterangepicker-bs3.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/colorpicker/bootstrap-colorpicker.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/select2/select2.css")" rel="stylesheet" />
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/back_full.css")" rel="stylesheet" />
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery-2.1.4.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.printArea.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery-ui-1.11.4.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.tooltipster.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.mousewheel-3.0.6.pack.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fancybox.pack.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/ui.datepicker-ro.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fancybox-buttons.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/ajaxupload-v1.2.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fileDownload.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/jvectormap/jquery-jvectormap-1.2.2.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/jvectormap/jquery-jvectormap-world-mill-en.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/bootstrap.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/bootstrap-checkbox.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/morris/morris.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/sparkline/jquery.sparkline.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/knob/jquery.knob.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/datatables/dataTables.bootstrap.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/daterangepicker/daterangepicker.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/datepicker/bootstrap-datepicker.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/slimScroll/jquery.slimscroll.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/colorpicker/bootstrap-colorpicker.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/fastclick/fastclick.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/select2/select2.full.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/chartjs/Chart.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/app.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/pages/dashboard.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/config.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/common.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/utils.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/back_common.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/back_utils.js")"></script>
+
+    <script type="text/javascript" src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Other_Plugins/ckeditor/ckeditor.js")"></script>
+    <script type="text/javascript" src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.ckeditor.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/CheckBox.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/DateRange.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/File.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/html.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/Image.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/input.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/link.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/MultyCheck.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/multyselect.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/NumberRange.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/select.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/BackEnd/Controls/selectlist.js")"></script>
+
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/CheckBox.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/DateRange.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/File.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/Image.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/input.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/Link.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/MultyCheck.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/multyselect.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/NumberRange.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/select.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/BackEnd/Controls/selectlist.css")" rel="stylesheet" />
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        @Html.PartialAsync("../Layout/Admin/_Header").Result
+        @Html.PartialAsync("../Layout/Admin/_Sidebar").Result
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        @Html.PartialAsync("../Layout/Admin/_Footer").Result
+    </div>
+</body>
+</html>
+

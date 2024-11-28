@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/bin/Debug
+/bin/Release
+/obj
+/GeneticLabDatabase.sqlproj.user
+/GeneticLabDatabase.jfm
+/.vs/GeneticLabDatabase/FileContentIndex
+/GeneticLabDatabase.dbmdl
+/.vs
+/AMAPDatabase.dbmdl
+/AMAPDatabase.jfm

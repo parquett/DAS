@@ -1,0 +1,312 @@
+﻿@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_Admin.cshtml";
+    var BOProperties = (Lib.AdvancedProperties.BoAttribute)ViewData["BOProperties"];
+    var Properties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"];
+    var AdvancedProperties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["AdvancedProperties"];
+    var SearchProperties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["SearchProperties"];
+    var BOType = (Type)ViewData["BOType"];
+    var LinkedItemURL = "";
+    int collscount = Properties.Count;
+    collscount += 4;
+    var addlCol = 0;
+    if (((Lib.Tools.BO.ItemBase)ViewData["LinkItem"]) != null)
+    {
+        LinkedItemURL = "/?BOLink=" + ViewData["BOLink"].ToString() + "&NamespaceLink=" + ViewData["NamespaceLink"].ToString() + "&IdLink=" + ViewData["Id"].ToString();
+    }
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @(BOProperties.DisplayName)
+        <small>@SecurityCRM.Helpers.T.Str("ControlPanel", "FrontEnd", "Control panel")</small>
+        @if (((Weblib.Models.Common.ButtonModel)ViewData["Add_Button"]) != null)
+        {
+            @: @Html.Partial("../Controls/_button", ViewData["Add_Button"])
+        }
+        @if (((Weblib.Models.Common.ButtonModel)ViewData["Print_Button"]) != null)
+        {
+            @: @Html.Partial("../Controls/_button", ViewData["Print_Button"])
+        }
+        @if (((Weblib.Models.Common.ButtonModel)ViewData["Export_Button"]) != null)
+        {
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary"><i class="fa fa-download"></i> @SecurityCRM.Helpers.T.Str("Export", "FrontEnd", "Export")</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a onclick="return do_export_excell_class()" href="#"><i class="fa fa-file-excel-o"></i> Excell</a></li>
+                    <li><a onclick="return do_export_csv_class()" href="#"><i class="fa fa-file-text-o"></i> Csv</a></li>
+                    @*<li><a href="#"><i class="fa fa-file-pdf-o"></i> Pdf</a></li>*@
+                </ul>
+            </div>
+        }
+        @if (((Weblib.Models.Common.ButtonModel)ViewData["Import_Button"]) != null)
+        {
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning"><i class="fa fa-file-excel-o"></i> @SecurityCRM.Helpers.T.Str("Import", "FrontEnd", "Import")</button>
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#"><i class="fa fa-file-excel-o"></i> Excell</a></li>
+                    <li><a href="#"><i class="fa fa-file-text-o"></i> Csv</a></li>
+                </ul>
+            </div>
+        }
+        @if (((Weblib.Models.Common.ButtonModel)ViewData["DeleteAll_Button"]) != null)
+        {
+            @: @Html.Partial("../Controls/_button", ViewData["DeleteAll_Button"])
+        }
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel/DashBoard/")"><i class="fa fa-dashboard"></i> @SecurityCRM.Helpers.T.Str("Dashboard", "FrontEnd", "Dashboard")</a></li>
+        @if (((Lib.Tools.BO.ItemBase)ViewData["LinkItem"]) != null)
+        {
+            var BOPropertiesLinked = (Lib.AdvancedProperties.BoAttribute)ViewData["BOPropertiesLinked"];
+            <li><a href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel/Edit/" + ViewData["BOLink"].ToString() + "/" + ViewData["NamespaceLink"].ToString())"><i class="fa fa-@(BOPropertiesLinked.Icon)"></i> @(BOPropertiesLinked.DisplayName)</a></li>
+            <li><a href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel/EditItem/" + ViewData["BOLink"].ToString() + "/" + ViewData["NamespaceLink"].ToString() + "/" + ViewData["Id"].ToString())"><i class="fa fa-@(BOPropertiesLinked.Icon)"></i> @(((Lib.Tools.BO.ItemBase)ViewData["LinkItem"]).GetName())</a></li>
+            <li class="active"><i class="fa fa-@(BOProperties.Icon)"></i> @(BOProperties.DisplayName)</li>
+
+        }
+        else
+        {
+            <li class="active"><i class="fa fa-@(BOProperties.Icon)"></i> @(BOProperties.DisplayName)</li>
+
+        }
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            @if (SearchProperties.Count > 0)
+            {
+                @:<div class="seach-body">
+                    @:<h3 class="box-title"><i class="fa fa-filter"></i> @SecurityCRM.Helpers.T.Str("Filters", "FrontEnd", "Filters")</h3>
+                    foreach (Lib.AdvancedProperties.AdvancedProperty property in SearchProperties)
+                    {
+                        if (property.Common.Editable == true)
+                        {
+                            @:<div class="filter-container">
+                                if (property.Common.EditTemplate != Lib.AdvancedProperties.EditTemplates.Parent)
+                                {
+                                    @:<div class="filter-title">
+                                        @:      @(property.Common.DisplayName):
+                                    @:</div>
+                                }
+                                object lControlModel = property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue(ViewData["Search_Item"]), property, (Lib.Tools.BO.ItemBase)ViewData["Search_Item"], false, Lib.AdvancedProperties.DisplayMode.Search);
+                                @Html.PartialAsync("../Controls/Generic/"+property.ControlView,lControlModel).Result                             @:</div>
+                        }
+                    }
+                    <button onclick="do_search()" class="btn btn-sm btn-primary btn-filter"><i class="fa fa-search"></i> @SecurityCRM.Helpers.T.Str("Search", "FrontEnd", "Search")</button>
+                    <button onclick="do_clear_search()" class="btn btn-sm btn-warning btn-clear-filter"><i class="fa fa-refresh"></i> @SecurityCRM.Helpers.T.Str("Reset", "FrontEnd", "Reset")</button>
+                    @:<div class="clear"></div>
+                @:</div>
+            }
+            <table id="dataGrid" data-type="@(ViewData["Grid_Type"])" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="control-col"> @SecurityCRM.Helpers.T.Str("Link", "FrontEnd", "Link")</th>
+                        <th class="id-col">ID</th>
+                        @foreach (Lib.AdvancedProperties.AdvancedProperty property in Properties)
+                        {
+                            <th>
+                                <div class="th-tooltip" title="@(property.Common.PropertyDescription)">
+                                    @(property.Common.DisplayName)
+                                    @if (property.Validation != null && (property.Validation.ValidationType == Lib.AdvancedProperties.ValidationTypes.Required || property.Validation.ValidationType == Lib.AdvancedProperties.ValidationTypes.RegularExpressionRequired))
+                                    {
+                                        <i class="fa fa-fw fa-asterisk req-field-indicator"></i>
+                                    }
+                                </div>
+                            </th>
+                        }
+                        <th>@SecurityCRM.Helpers.T.Str("DateCreated", "FrontEnd", "Date created")</th>
+                        <th>@SecurityCRM.Helpers.T.Str("Author", "FrontEnd", "Author")</th>
+                        @if (BOProperties.AllowEdit && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.EditAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Edit", "FrontEnd", "Edit")</th>
+                        }
+                        @if (BOProperties.AllowCopy && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.CopyAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Clone", "FrontEnd", "Clone")</th>
+                        }
+                        @if (BOProperties.AllowDelete && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.DeleteAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Delete", "FrontEnd", "Delete")</th>
+                        }
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th class="control-col">@SecurityCRM.Helpers.T.Str("Link", "FrontEnd", "Link")</th>
+                        <th class="control-col">ID</th>
+                        @foreach (Lib.AdvancedProperties.AdvancedProperty property in Properties)
+                        {
+                            <th>
+                                @(property.Common.DisplayName)
+                            </th>
+                        }
+                        <th>@SecurityCRM.Helpers.T.Str("DateCreated", "FrontEnd", "Date created")</th>
+                        <th>@SecurityCRM.Helpers.T.Str("Author", "FrontEnd", "Author")</th>
+                        @if (BOProperties.AllowEdit && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.EditAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Edit", "FrontEnd", "Edit")</th>
+                        }
+                        @if (BOProperties.AllowCopy && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.CopyAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Clone", "FrontEnd", "Clone")</th>
+                        }
+                        @if (BOProperties.AllowDelete && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.DeleteAccess))
+                        {
+                            <th class="control-col">@SecurityCRM.Helpers.T.Str("Delete", "FrontEnd", "Delete")</th>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+    <script type="text/javascript">
+    drawTable();
+
+    function drawTable() {
+        $('#dataGrid').DataTable({
+            "bProcessing": true,
+            "oLanguage": {
+                "sProcessing": "<img src='@(Lib.Tools.Utils.URLHelper.GetUrl("Images/simplified/ajax-loader.gif"))' />"
+            },
+            "bServerSide": true,
+            "sServerMethod": "POST",
+            "sAjaxSource": "@Lib.Tools.Utils.URLHelper.GetUrl("DataProcessor/Load/" + BOType.Name + "/" + System.Net.WebUtility.UrlEncode(BOType.Namespace) + "/" + ViewData["BOLink"].ToString() + "/" + ViewData["NamespaceLink"].ToString() + "/" + ViewData["Id"].ToString())",
+            "bPaginate": true,
+            "bStateSave": true,
+            "order": [[ 1, "desc" ]],
+            "iDisplayLength": 10,
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "fnServerParams": function ( aoData ) { //push data from datepicker
+                if (gaoSearchData!=null && gaoSearchData.length>0){
+                    for(var i=0;i<gaoSearchData.length;i++){
+
+                        aoData.push( gaoSearchData[i] );
+                    }
+                }
+            },
+            "aoColumnDefs": [
+                {
+                    "render": function (data, type, row) {
+                        return data = "<A class=\"cp-action-view\" href=\"@(Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel/EditItem/" + BOType.Name + "/" + System.Net.WebUtility.UrlEncode(BOType.Namespace) + "/"))"+row[0]+"@(LinkedItemURL)\" title=\"View\"><i class=\"fa fa-external-link\"></i></A>";
+                    },
+                    "targets": 0
+                }
+                @{addlCol = 0;}
+                @if(BOProperties.AllowEdit && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.EditAccess)){
+                @:,
+                @:{
+                @:    "render": function (data, type, row) {
+                @:       if (data!=""){
+                @:          return data = "<A class=\"cp-action-edit\" href=\"#\" title=\"Edit\" onclick=\"return edit_row_item(" + data + ")\"><i class=\"fa fa-edit\"></i></A><A class=\"cp-action-save\" href=\"#\" title=\"Edit\" onclick=\"return save_row_item(" + data + ")\"><i class=\"fa fa-save\"></i></A>";}
+                @:       return data="";
+                @:    },
+                @:    "targets": @(collscount + addlCol)
+                @:}
+                addlCol++;
+                }
+                @if (BOProperties.AllowCopy && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.CopyAccess))
+                {
+                @:,
+                @:{
+                @:    "render": function (data, type, row) {
+                @:       if (data!=""){
+                @:        return data = "<A class=\"cp-action-copy\" href=\"#\" title=\"Copy\" onclick=\"return copy_row_item("+row[0]+",'" + data + "')\"><i class=\"fa fa-clone\"></i></A>";}
+                @:       return data="";
+                @:    },
+                @:    "targets": @(collscount + addlCol)
+                @:}
+                addlCol++;
+                }
+                @if (BOProperties.AllowDelete && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.DeleteAccess))
+                {
+                @:,
+                @:{
+                @:    "render": function (data, type, row) {
+                @:       if (data!=""){
+                @:        return data = "<A class=\"cp-action-delete\" href=\"#\" title=\"Delete\" onclick=\"return delete_row_item("+row[0]+",'" + data + "')\"><i class=\"fa fa-trash-o\"></i></A>";}
+                @:       return data="";
+                @:    },
+                @:    "targets": @(collscount + addlCol)
+                @:}
+                addlCol++;
+                }
+            ],
+            "aoColumns": [
+                { "bVisible": true, "bSearchable": false, "bSortable": false },
+                { "bVisible": true, "bSearchable": false, "bSortable": true, "aaData": "Id" },
+                @foreach (Lib.AdvancedProperties.AdvancedProperty property in Properties)
+                {
+                    @:{
+                    @:  "bVisible": true, "bSearchable": true, "bSortable": @(property.Common.Sortable==true?"true":"false"), "aaData": "@(property.PropertyName)"
+                    @:},
+                }
+                { "bVisible": true, "bSearchable": false, "bSortable": true, "aaData": "DateCreated" },
+                { "bVisible": true, "bSearchable": false, "bSortable": true, "aaData": "CreatedBy" },
+                @if (BOProperties.AllowEdit && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.EditAccess))
+                {
+                @:{ "bVisible": true, "bSearchable": false, "bSortable": false },
+                }
+                @if (BOProperties.AllowCopy && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.CopyAccess))
+                {
+                @:{ "bVisible": true, "bSearchable": false, "bSortable": false },
+                }
+                @if (BOProperties.AllowDelete && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.DeleteAccess))
+                {
+                @:{ "bVisible": true, "bSearchable": false, "bSortable": false },
+                }
+            ],
+            "createdRow": function ( row, data, index ) {
+                $(row).addClass("data-grid-data-row-"+data[0]);
+
+                $($(row).find('td')[0]).addClass("control-cell");
+
+                @{addlCol = 0;}
+                @if (BOProperties.AllowEdit && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.EditAccess))
+                {
+                @:$($(row).find('td')[@(collscount + addlCol)]).addClass("control-cell");
+                addlCol++;
+                }
+
+                @if (BOProperties.AllowCopy && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.CopyAccess))
+                {
+                    @:$($(row).find('td')[@(collscount + addlCol)]).addClass("control-cell");
+                addlCol++;
+                }
+
+                @if (BOProperties.AllowDelete && Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission(BOProperties.DeleteAccess))
+                {
+                @:$($(row).find('td')[@(collscount + addlCol)]).addClass("control-cell");
+                }
+            },
+            "fnStateSaveParams": function (oSettings, oData) {
+                oData['search']['search'] = "";
+                oData['start'] = 0;
+                localStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
+            }
+        }).on( 'draw.dt', function () {
+            if(reloadControls!=undefined){
+                reloadControls();
+            }
+            else{
+                $(document).ready(function () {
+                    reloadControls();
+                });
+            }
+        } );
+    }
+    </script>
+</section>
+@Html.Partial("../Controls/ControlPanel/_deletedialog")
+@Html.Partial("../Controls/ControlPanel/_deletealldialog")
+@Html.Partial("../Controls/ControlPanel/_alertdialog")
+@Html.Partial("../Controls/ControlPanel/_clonedialog")

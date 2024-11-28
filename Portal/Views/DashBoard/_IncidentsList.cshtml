@@ -1,0 +1,29 @@
+﻿@using Lib.BusinessObjects
+@if (((Dictionary<long, Incident>)ViewData["List"]).Count > 0)
+{
+    <script type="text/javascript">
+        var gLatestDashboardId = @(((Dictionary<long, Lib.BusinessObjects.Incident>)ViewData["List"]).Values.First(i => i.Id > 0).Id);
+        var gDashboardItemsCount = @(((Dictionary<long, Lib.BusinessObjects.Incident>)ViewData["List"]).Count);
+    </script>
+    <form class="table-widget">
+        <div class="dashboard-ico">
+            <div class="outer-ico">
+                <div class="widget-caption">
+                    @Html.Raw(SecurityCRM.Helpers.T.Str("IncidentsList", "DashBoard", "Incidents List"))
+                </div>
+                <div class="data-grid-container">
+                    <div class="data-grid">
+                        <div class="data-grid-title-row">
+                           <div class="data-grid-title">@Html.Raw(SecurityCRM.Helpers.T.Str("IncidentId", "DashBoard", "IncidentId"))</div>
+                        <div class="data-grid-title">@Html.Raw(SecurityCRM.Helpers.T.Str("Name", "DashBoard", "Name"))</div>
+                            @*<div class="data-grid-title">@Html.Raw(SecurityCRM.Helpers.T.Str("CreatedBy", "DashBoard", "CreatedBy"))</div>*@
+                        <div class="data-grid-title">@Html.Raw(SecurityCRM.Helpers.T.Str("DateCreated", "DashBoard", "Date Created"))</div>
+                        </div>
+                    @Html.Partial("Controls/_IncidentsRows")
+                    </div>
+                    </div>
+                </div>
+            </div>
+        <div class="clear" style="height:1px"></div>
+    </form>
+}

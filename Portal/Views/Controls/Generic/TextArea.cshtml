@@ -1,0 +1,26 @@
+﻿@model Controls.Input.Models.InputModel
+@using Lib.BusinessObjects.Translations;
+@using WebLib.UI
+@using Lib.BusinessObjects
+@{
+    Layout = "";
+}
+<script src="~/Scripts/BackEnd/Controls/input.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/input.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search)
+{
+    <div class="control-input control-input-multiline control-view">
+        @Html.Raw(Model.Value)
+        @if (Model.Translatable)
+        {
+            <a href="#" class="fa fa-language" onclick="loadDynamicTranslation('@Model.BOName', @Model.BOId, '@Model.PropertyName', ' @Html.Raw(Translation.SanitizeHTML(Model.Value))')"></a>
+        }
+
+    </div>
+}
+@if (!Model.ReadOnly)
+{
+    <div data-control="textarea" class="control-input control-input-multiline control-edit@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search)?" displayblock":"")">
+        @Html.Partial("../Controls/_textarea", Model.TextBox)
+    </div>
+}

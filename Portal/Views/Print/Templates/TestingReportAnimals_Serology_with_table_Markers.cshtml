@@ -1,0 +1,191 @@
+﻿<style type="text/css">
+    .table {
+        border-collapse: collapse;
+        margin: auto;
+    }
+
+    .td {
+        font-size: 13px;
+        vertical-align: top;
+        padding: 0px;
+    }
+
+    .tr {
+        height: 20px
+    }
+
+    .page1 {
+        page-break-after: always;
+    }
+
+    .width100 {
+        width: 100%
+    }
+
+    .width90 {
+        width: 90%
+    }
+
+    .width82 {
+        width: 82%
+    }
+
+    .width72 {
+        width: 72%
+    }
+
+    .width60 {
+        width: 60%
+    }
+
+    .width50 {
+        width: 50%
+    }
+
+    .width40 {
+        width: 40%
+    }
+
+    .width30 {
+        width: 30%
+    }
+
+    .width20 {
+        width: 20%
+    }
+
+    .width10 {
+        width: 10%
+    }
+
+    .width3 {
+        width: 3%
+    }
+
+    .botbord1 {
+        border-bottom: 1px solid black
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .smallest {
+        font-size: 11px;
+    }
+
+    .textright {
+        text-align: right
+    }
+
+    .textcenter {
+        text-align: center
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+</style>
+<table border="1" class="nowrap width100 table textcenter" style="color:gray; vertical-align:middle;border:1px solid gray">
+    <tbody>
+        <tr>
+            <td class="td" style="width:25%; padding-top:7px"><img src="{KFA_Food}" style="height:105px " /></td>
+            <td class="td" style="width:50%; vertical-align:middle">
+                Adresa: Zona Industriale P.N., 10000 Prishtin&euml;<br />
+                Republika e Kosov&euml;s/Republika Kosova/Republic<br />
+                of Kosovo<br />
+                Web: <a href="www.auv-ks.net">www.auv-ks.net</a><br />
+                Tel: 038 551 055<br />
+                Faqe 1 nga 1
+            </td>
+            <td class="td" style="width:25%; vertical-align:middle">{DAK_066}</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter td"><b>RAPORT TESTIMI/TESTIRANJE IZVE&Scaron;TAJ/TESTING REPORT</b></td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="table width100">
+    <tbody>
+        <tr>
+            <td class="td">
+                <b>Numri Serik:<span style="text-decoration:underline"><em>{UniqueCod}</em></span></b><br />
+                Serijski broj/ Serial number<br />
+                <b>Emri dhe adresa e klientit: <span style="text-decoration:underline"><em>{RequesterName}</em></span></b><br />
+                Ime i prezime klijenta/ Name and surname of Client<br />
+                <b>Referenca e planit t&euml; marrjes s&euml; mostrave: {ResearchScope}</b><br />
+                Referenca plana uzorkovanja/Reference of sampling plan<br />
+                <b>Data e pranimit t&euml; mostr&euml;s(ave):<span style="text-decoration:underline"><em>{SampleRegisterDate}</em></span></b><br />
+                Datum prijema uzorka/Date of sample reception<br />
+                <b>Mostra e sjellur nga:<span style="text-decoration:underline"><em>{SamplingResponsable}</em></span></b><br />
+                Uzorak donet od strane /Sample delivered by<br />
+                <b>Materiali q&euml; testohet: <span style="text-decoration:underline"><em>{SampleName}</em></span></b><br />
+                Testirani material /Sample tested<br />
+                <b>Data e kryerjes s&euml; testimit: <span style="text-decoration:underline"><em>{InvestigationEnd}</em></span></b><br />
+                Datum izvr&scaron;enja testiranje/Date of test completion<br />
+                <b>P&euml;rshkrimi i mostr&euml;s: E rregullt/</b>Redovan/Regular&nbsp;&nbsp;<input style="width: 15px; height:15px!important;" value="{Regular}" /><b>&nbsp;&nbsp;Jo e rregullt/</b>/Nepravilan/Irregular &nbsp;&nbsp;<input style="width: 15px; height:15px!important;" value="{Irregular}" /><br />
+                Opis uzorka/Sample description<br />
+                <b>Nr. K&euml;rkes&euml;s: {NrProtocol} </b><br />
+                <br />
+                <b>Parametri: {SicknessesInvestigations}</b><br />
+                <span class="smallest">OIE Manual of Diagnostic Tests and Vaccines for Terrestrial Animals 2019</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter td"><b>Rezultatet e testimit / Rezultat testova / Test results</b></td>
+        </tr>
+    </tbody>
+</table>
+&nbsp; {ResultsTable}
+
+<table class="table width100">
+    <tbody>
+        <tr>
+            <td class="td ">{Remark}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table width100">
+    <tbody>
+        <tr>
+            <td class="td ">
+                <b>-Rezultati vlen&euml; p&euml;r mostr&euml;n(at) e testuar(a).</b><br />
+                Rezultat se odnosi na testiranom uzorku/Result is valid for sample(s) tested.<br />
+                <b>-Raporti nuk lejohet t&euml; fotokopjohet dhe keqp&euml;rdoret.</b><br />
+                Nije dozvoljeno fotokopiranje i zloupotreba Izve&scaron;taja /Result is not permitted to be photocopied or abused.
+            </td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="table width100 nowrap">
+    <tbody>
+        <tr>
+            <td class="td"><b>Data e l&euml;shimit t&euml; rezultateve: </b> <span style="text-decoration:underline">{IssuedDate}</span></td>
+        </tr>
+        <tr>
+            <td class="td smallest">
+                Datum izdavanja rezultata:<br />
+                Date of issue of result:
+            </td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+{HeadOfSections}

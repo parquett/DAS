@@ -1,0 +1,41 @@
+﻿@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_AdminSimplified.cshtml";
+}
+    <div class="login-box">
+        <div class="login-logo">
+            <a style="display:block;margin: 0px auto;" href="@Lib.Tools.Utils.URLHelper.GetUrl("")">
+                <img src="@Lib.Tools.Utils.URLHelper.GetUrl(@"Images\logo_btn.png")" />
+            </a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <section class="content">
+                <div class="error-page">
+                    <h4 class="headline text-yellow" style="font-size: 50px!important;"> Access Denied</h4>
+                    <div class="error-content">
+
+                        <p style="margin-top:30px!important">
+                            <i class="fa fa-warning text-yellow"></i>
+                            You Don't Have Access To View This Page.
+                            Please Contact System Administrator.
+                        </p>
+
+                        <a onclick="goback()" style="width:60%;display:block;margin: 0px auto;" class="btn btn-block btn-danger btn-sm">
+                            Back
+                        </a>
+                    </div>
+                    <!-- /.error-content -->
+                </div>
+                <!-- /.error-page -->
+            </section>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <div class="clear"></div>
+
+    <script>
+        function goback() {
+            history.back();
+        }
+    </script>

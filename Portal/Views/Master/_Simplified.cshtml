@@ -1,0 +1,94 @@
+@using SecurityCRM;
+@using Microsoft.AspNetCore.Http;
+@using lib;
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="msapplication-config" content="none"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>@ViewBag.Title</title>
+        <link href="~/Images/favicon.png" rel="shortcut icon" type="image/png" />
+        <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/common.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/jquery.fancybox.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-buttons.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-thumbs.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/simplified.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/front_common.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/jquery.fancybox.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-buttons.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/Controls.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/dashboard.css")" rel="stylesheet"/>
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/Report.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/front_simplified.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/BrowserSpecific/win_chrome.css")" rel="stylesheet"/>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery-2.1.4.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.printArea.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/front_common.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/front_utils.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/common.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/utils.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/login.js")"></script>
+        <script type="text/javascript">
+        @if (HttpContextHelper.Current.Session.GetInt32("IsSafary") == 1)
+        {
+            @:gIsSafary = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsChrome") == 1)
+        {
+            @:gIsChrome = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsFF") == 1)
+        {
+            @:gIsFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacSafary") == 1)
+        {
+            @:gIsMacSafary = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacChrome") == 1)
+        {
+            @:gIsMacChrome = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE11") == 1)
+        {
+            @:gIsIE11 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE10") == 1)
+        {
+            @:gIsIE10 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE9") == 1)
+        {
+            @:gIsIE9 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsAndroidFF") == 1)
+        {
+            @:gIsAndroidFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsAndroidNative") == 1)
+        {
+            @:gIsAndroidNative = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIPad") == 1)
+        {
+            @:gIsIPad = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacFF") == 1)
+        {
+            @:gIsMacFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIEOld") == 1)
+        {
+            @:gIsIEOld = true;
+        }
+    </script>
+    </head>
+    <body>
+        @Html.Partial("../Layout/Simplified/_Header")
+        <div class="simplified-content">
+            @RenderBody()          
+        </div>
+        @Html.Partial("../Layout/Simplified/_Footer")
+    </body>
+</html>

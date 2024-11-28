@@ -1,0 +1,24 @@
+@using SecurityCRM
+@using SecurityCRMLib.BusinessObjects;
+@using Lib.BusinessObjects.Translations;
+@using Weblib.Models.Common
+@using Lib.Models
+@using Lib.BusinessObjects
+@{
+    var currentuser = Lib.Tools.Security.Authentication.GetCurrentUser();
+    var currentPerson = SecurityCRMLib.BusinessObjects.Person.Current();
+    var currentLanguage = Language.Current();
+}
+<div class="footer">
+    @if (ViewData["QuickLinks"] != null)
+    {
+        <div class="footer-quicklinks">
+            @foreach (var ilink in (List<Lib.Models.Common.iBaseControlModel>)ViewData["QuickLinks"])
+            {
+                var link = (Lib.Models.LinkModel)ilink;
+                <a class="@link.Class" href="@link.Href">@Html.Raw(link.Caption)</a>
+            }
+            <div class="clear"></div>
+        </div>
+    }
+</div>

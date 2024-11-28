@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>false</UseWPF>
+    <ImportWindowsDesktopTargets>false</ImportWindowsDesktopTargets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Controllers\SystemManagement.cs" />
+    <Compile Remove="EmbeddedViews\EmbeddedResourceVirtualFile.cs" />
+    <Compile Remove="EmbeddedViews\EmbeddedViewMetadata.cs" />
+    <Compile Remove="EmbeddedViews\EmbeddedViewResolver.cs" />
+    <Compile Remove="EmbeddedViews\EmbeddedViewTable.cs" />
+    <Compile Remove="EmbeddedViews\EmbeddedViewVirtualPathProvider.cs" />
+    <Compile Remove="EmbeddedViews\IEmbeddedViewResolver.cs" />
+    <Compile Remove="Localization\LocalizedRoute.cs" />
+    <Compile Remove="Localization\LocalizedRouteExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.1.1" />
+    <PackageReference Include="HtmlToOpenXml.dll" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
+    <PackageReference Include="NEST" Version="7.17.5" />
+    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="System.AppContext" Version="4.3.0" />
+    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
+    <PackageReference Include="System.Console" Version="4.3.1" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+    <PackageReference Include="System.Net.Primitives" Version="4.3.1" />
+    <PackageReference Include="System.Net.Sockets" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
+    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+    <PackageReference Include="System.Threading.Timer" Version="4.3.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
+    <PackageReference Include="System.Xml.XDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Antlr4" Version="4.6.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EmbeddedViews\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lib\CustomLib\SecurityCRMLib.csproj" />
+    <ProjectReference Include="..\..\lib\Lib\Lib.csproj" />
+  </ItemGroup>
+</Project>

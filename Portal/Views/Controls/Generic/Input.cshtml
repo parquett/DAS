@@ -1,0 +1,52 @@
+﻿@model Controls.Input.Models.InputModel
+@using Weblib.Models.Common
+@using WebLib.UI
+@using Lib.BusinessObjects;
+@using Lib.BusinessObjects.Translations
+@{
+    Layout = "";
+}
+<script src="~/Scripts/BackEnd/Controls/input.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/input.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search && Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+{
+    <div class="control-input control-view @(Model.CssView)" @if (!string.IsNullOrEmpty(Model.Color)) { @: style="color:@Model.Color"
+         }>
+        @Html.Raw(System.Net.WebUtility.HtmlDecode(Model.Value))
+        @if (Model.Translatable)
+        {
+            <a href="#" class="fa fa-language" onclick="loadDynamicTranslation('@Model.BOName', @Model.BOId, '@Model.PropertyName', ' @Html.Raw(Translation.SanitizeHTML(Model.Value))')"></a>
+        }
+
+    </div>
+}
+@if (!Model.ReadOnly)
+{
+    if (Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+    {
+        <div data-control="input"
+             class="control-input control-edit @(Model.CssEdit)
+         @if (Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search) { @: displayblock
+                           } "
+             @if (!string.IsNullOrEmpty(Model.Color)) { @: style="color:@(Model.Color)"
+             }>
+            @if (Model.TextBox.Class == "calendar-input small-input")
+            {
+                <i class="fa fa-calendar"></i>
+            }
+            @Html.Partial("../Controls/_textbox", Model.TextBox)
+            @if (Model.HourTextBox != null)
+            {
+                @Html.Partial("../Controls/_textbox", Model.HourTextBox)
+            }
+            @if (Model.MinutesTextBox != null)
+            {
+                @Html.Partial("../Controls/_textbox", Model.MinutesTextBox)
+            }
+        </div>
+    }
+    else
+    {
+        @Html.Partial("../Controls/RowControl/_inputrow", Model.TextBox)
+    }
+}

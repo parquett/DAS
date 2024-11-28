@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GofraLib", "GofraLib\GofraLib.csproj", "{4FD6B06E-6913-429F-A235-AA327DC4A6A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeneticLabLib", "CustomLib\GeneticLabLib.csproj", "{8DC917A8-5BC8-4DE5-8E47-AE0DD288EDE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FD6B06E-6913-429F-A235-AA327DC4A6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FD6B06E-6913-429F-A235-AA327DC4A6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FD6B06E-6913-429F-A235-AA327DC4A6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FD6B06E-6913-429F-A235-AA327DC4A6A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC917A8-5BC8-4DE5-8E47-AE0DD288EDE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC917A8-5BC8-4DE5-8E47-AE0DD288EDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC917A8-5BC8-4DE5-8E47-AE0DD288EDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC917A8-5BC8-4DE5-8E47-AE0DD288EDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C92C8B27-94F1-4B65-AA3E-68D2269823BE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,17 @@
+﻿@using Weblib.Models
+@using Weblib.Models.Common
+@using Lib.Tools.BO
+@using SecurityCRMLib.BusinessObjects
+@{
+    Layout = "~/Views/Master/_Js.cshtml";
+    //this.Response.ContentType = "text/javascript";
+    var lModel = (string)ViewData["Model"];
+}
+var @(lModel) = [
+@{var ind = 0;}
+@foreach (var item in Model.Values)
+{     
+    @(ind!=0?", ":"") @:{value:@(((ItemBase)item).Id),label:"@(((ItemBase)item).GetName())",category: "@(((ItemBase)item).Category)" }
+    ind++;
+}            
+];

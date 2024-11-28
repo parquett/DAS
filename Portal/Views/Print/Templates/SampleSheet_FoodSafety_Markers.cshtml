@@ -1,0 +1,230 @@
+﻿<style type="text/css">
+    .table {
+        border-collapse: collapse;
+        margin: auto;
+    }
+
+    td {
+        font-size: 12px;
+        vertical-align: top;
+        padding: 3px;
+    }
+
+    tr {
+        height: 20px
+    }
+
+
+    .width100 {
+        width: 100%
+    }
+
+    .width90 {
+        width: 90%
+    }
+
+    .width82 {
+        width: 82%
+    }
+
+    .width72 {
+        width: 72%
+    }
+
+    .width60 {
+        width: 60%
+    }
+
+    .width50 {
+        width: 50%
+    }
+
+    .width40 {
+        width: 40%
+    }
+
+    .width30 {
+        width: 30%
+    }
+
+    .width20 {
+        width: 20%
+    }
+
+    .width10 {
+        width: 10%
+    }
+
+    .width3 {
+        width: 3%
+    }
+
+    .botbord1 {
+        border-bottom: 1px solid black
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .smallest {
+        font-size: 9px;
+    }
+
+    .textright {
+        text-align: right
+    }
+
+    .textcenter {
+        text-align: center
+    }
+</style>
+<table border="1" class="nowrap width100 table textcenter" style="color:gray; vertical-align:middle">
+    <tbody>
+        <tr>
+            <td style="width:20%"><img src="{KFA_logo}" style="height:40px; " /></td>
+            <td style="width:60%; vertical-align:middle">
+                FORMULARI I DISTRIBUIMIT DHE<br />
+                URDHERESA PER PUNE
+            </td>
+            <td style="width:20%; vertical-align:middle">Вata e leshimit 20.10.2020</td>
+        </tr>
+        <tr>
+            <td style="vertical-align:middle">
+                Laboratori i Usluaimit dile<br />
+                Veterinarise
+            </td>
+            <td style="width:45; vertical-align:middle">FSC 7.3-1</td>
+            <td style="vertical-align:middle">Versioni: 1.0</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter"><b>TЁ DHЁNAT E MOSTRЁS</b></td>
+        </tr>
+    </tbody>
+</table>
+HarvestTemp
+
+<table border="1" class="width100 table" style="">
+    <tbody>
+        <tr style=" height: 25px">
+            <td class="width30">Kodi i mostrёs:</td>
+            <td>{kodiMostres}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td>Sektori:</td>
+            <td>{SectionName}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td>Lloji dhe numri i mostrave:</td>
+            <td>{SampleName} {Quantity}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td>Kushtet e mostrEs ni pranim:</td>
+            <td>{HarvestTemp}</td>
+        </tr>
+        <tr style=" height: 25px;">
+            <td>Data e pranimit:</td>
+            <td>{DateSection}</td>
+        </tr>
+        <tr style=" height: 15px;">
+            <td style="padding:1px">VErejtje:</td>
+            <td style="padding:1px">&nbsp;</td>
+        </tr>
+        <tr style=" height: 30px">
+            <td style="border-right:0px">Zyrtari i pranimit t&euml; mostres:</td>
+            <td style="border-left:0px;padding-top:0px">
+                <table class="width40" style="border-collapse: collapse; margin-top:0px">
+                    <tbody>
+                        <tr style=" height: 5px;">
+                            <td style="border-bottom:1px solid black">{UserName}</td>
+                        </tr>
+                        <tr style=" height: 5px;">
+                            <td class="smallest" style="padding-bottom:0px">(Emri, mbiemri dhe n&euml;nshkrimi)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter"><b>URDIЁRESЁ PЁR PLUNЁ</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1" class="width100 table" style="">
+    <tbody>
+        <tr>
+            <td class="width30">Testi/ Analiza q&euml; k&euml;rkohet:</td>
+            <td>{Investigations}</td>
+        </tr>
+        <tr>
+            <td>Programi:</td>
+            <td>{ResearchScope}</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="width100 table nowrap" style="">
+    <tbody>
+        <tr>
+            <td class="width20">Udh&euml;heq&euml;si i Sektorit:</td>
+            <td class="width60">&nbsp;</td>
+            <td class="width20">Dat&euml;:</td>
+        </tr>
+        <tr>
+            <td style="border-bottom:1px solid black; height:10px"></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>(N&euml;nshkrimi)</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter"><b>RAPORTI I TESTENLIT</b></td>
+        </tr>
+    </tbody>
+</table>
+{ResultsTable}
+
+<table class="nowrap width82 table">
+    <tbody>
+        <tr>
+            <td colspan="2">
+                Aprovoi:<br />
+                Udh&euml;heq&euml;si i Sektorit:
+            </td>
+        </tr>
+        <tr>
+            <td class="botbord1" colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <td style="width:3%">Dat&euml;:</td>
+            <td class="botbord1" style="width:15%">&nbsp;</td>
+            <td style="width:85%">&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+

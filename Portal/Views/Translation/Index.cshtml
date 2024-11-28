@@ -1,0 +1,124 @@
+@using SecurityCRM
+@using Weblib.Models
+@using Weblib.Models.Common
+@using Lib.Tools.BO
+@using SecurityCRMLib.BusinessObjects
+@using Lib.AdvancedProperties
+@using Lib.BusinessObjects
+@using lib;
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_Standard.cshtml";
+    var gSearch = (string)ViewData["GlobalSearch"];
+    var User = Lib.Tools.Security.Authentication.GetCurrentUser();
+    var context = HttpContextHelper.Current;
+    var PredefinedFilters = (string)ViewData["PredefinedFilters"];
+    var Assembly = ViewData["Assembly"] != null ? (StaticTranslationAssembly)ViewData["Assembly"] : StaticTranslationAssembly.FrontEnd;
+    var Count = (long)ViewData["Count"];
+    var CountPerPage = (int)ViewData["iPagingLen"];
+    var PageNum = (int)ViewData["PageNum"];
+}
+<div class="edit-section">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="edit-section-header">
+        @SecurityCRM.Helpers.T.Str("translations", "FrontEnd", "Translations")
+    </div>
+    <div class="edit-section-body">
+        <div class="data-section-row translation-filter">
+            <div class="edit-section-row translation-filter" style="padding: 5px;">
+
+                @Html.Partial("../Controls/RowControl/_selectrow", new DropDownModel()
+                   {
+                       Name = "Assembly",
+                       Options = new StaticTranslationAssembly().Populate(),
+                       Value = Assembly.Id.ToString(),
+                       Caption = SecurityCRM.Helpers.T.Str("Source", "FrontEnd", "Source"),
+                       OnChange = "window.location = '" + Lib.Tools.Utils.URLHelper.GetUrl("Translation/?Assembly='") +"+"+ "$(this).val()"
+                    })
+                <div class="clear"></div>
+            </div>
+            <div class="edit-section-row-right ">
+                <div class="clear"></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="edit-section-row translation-filter" style="padding: 5px;">
+            <div class="edit-section-row-left ">
+                @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel()
+                {
+                   Name = "TranslationKey",
+                   Type = Weblib.Models.Common.Enums.TextboxType.Text,
+                   Caption = SecurityCRM.Helpers.T.Str("Key", "FrontEnd", "Key"),
+                })
+                <div class="clear"></div>
+            </div>
+            <div class="edit-section-row-left ">
+                <div class="edit-section-row-full-size ">
+                    @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel()
+                   {
+                       Name = "GlobalSearch",
+                       Caption = SecurityCRM.Helpers.T.Str("GlobalSearch", "FrontEnd", "Global Search"),
+                       PlaceHolder = SecurityCRM.Helpers.T.Str("EnterYourSearchText", "FrontEnd", "Enter your search text")
+                   })
+                    <a href="#" onclick="return clear_autocomplete(this)" class="clear-link"></a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="edit-section-row " id="languages">
+            <div class="edit-section-row " style=" color: #606060">
+                @SecurityCRM.Helpers.T.Str("Languages", "FrontEnd", "Languages")
+                <div class="clear"></div>
+            </div>
+            <div class="edit-section-row-full-size-floatelements ">
+                @foreach (var lColumn in StaticTranslation.LoadColumns())
+                {
+                    <input id="col_@lColumn.Id" class="checkbox" onchange="ToggleColumn(this,'translations',@lColumn.Id)" type="checkbox" checked /><label class="checkbox-caption caption" for="col_@lColumn.Id">@lColumn.GetName()</label>
+                }
+                <div class="clear"></div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        @if (Count > 0)
+        {
+            <div class="grid-item-page">
+                <div class="grid-item-page-block">
+                    <select onchange="researchTranslation()" id="dpdwn_count_per_page" class="grid-item-page-ddown">
+                        <option @(CountPerPage == 10 ? "selected" : "")>10</option>
+                        <option @(CountPerPage == 25 ? "selected" : "")>25</option>
+                        <option @(CountPerPage == 50 ? "selected" : "")>50</option>
+                        <option @(CountPerPage == 100 ? "selected" : "")>100</option>
+                    </select>
+                    <div class="grid-item-page-ddown-text">
+                        @SecurityCRM.Helpers.T.Str("RecordsOnPage", "FrontEnd", "records on page")
+                    </div>
+                </div>
+                <div class="grid-item-add-page-block">
+                    <div class="grid-item-page-counter">
+                        @SecurityCRM.Helpers.T.Str("Shown", "FrontEnd", "shown") @(CountPerPage < Count ? CountPerPage : Count) @SecurityCRM.Helpers.T.Str("From", "FrontEnd", "from") @Count @SecurityCRM.Helpers.T.Str("Records", "FrontEnd", "records")
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="">
+            <div id="TranslationGrid">
+                @Html.Partial("_translationGrid")
+
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+
+    </div>
+
+
+</div>
+<input type="hidden" id="page_num" value="@PageNum" />
+

@@ -1,0 +1,65 @@
+﻿@model SecurityCRMLib.BusinessObjects.User
+@using Weblib.Models
+@using Weblib.Models.Common
+@{
+    Layout = "~/Views/Master/_Standard.cshtml";
+}
+<form class="inner-content-area content-control content-user" action="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Edit")">        
+    <div class="ajax-loading-overlay"></div>    
+    @Html.Partial("../Controls/RowControl/_pagecontrols", new PageControlsModel() { Id = Model.Id, Delete=false,Object="User",Namespace=typeof(SecurityCRMLib.BusinessObjects.User).FullName })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="inner-content-left">
+        <div class="edit-section">
+            <div class="edit-section-header">
+                @(SecurityCRM.Helpers.T.Str("Personal data", "FrontEnd", "Personal data"))
+            </div>
+            <div class="edit-section-body">
+                <div class="edit-section-row">
+                    <div class="edit-section-row-left">
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "FirstName", Type=Weblib.Models.Common.Enums.TextboxType.ReadOnly , Value = Model.Person.FirstName, Caption = (SecurityCRM.Helpers.T.Str("First Name", "FrontEnd", "First Name")) })
+                    </div>
+                    <div class="edit-section-row-right">
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "LastName", Type=Weblib.Models.Common.Enums.TextboxType.ReadOnly, Value = Model.Person.LastName, Caption = (SecurityCRM.Helpers.T.Str("Last Name", "FrontEnd", "Last Name")) })
+                    </div>
+                    <div class="clear"></div>
+                </div>                
+                <div class="edit-section-row">
+                    <div class="edit-section-row-left">
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "UserName", Type=Weblib.Models.Common.Enums.TextboxType.ReadOnly , Value = Model.Login, Caption = (SecurityCRM.Helpers.T.Str("Login", "FrontEnd", "Login")) })
+                    </div>
+                    <div class="edit-section-row-right">
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "OldPassword", ValidationType = Lib.AdvancedProperties.ValidationTypes.Required, Type = Weblib.Models.Common.Enums.TextboxType.Password, Caption = (SecurityCRM.Helpers.T.Str("Curent password", "FrontEnd", "Curent password")) })
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "Password", ValidationType = Lib.AdvancedProperties.ValidationTypes.Required, ValidationFuction = "PasswordEqual", Type = Weblib.Models.Common.Enums.TextboxType.Password, Caption = (SecurityCRM.Helpers.T.Str("Messages", "FrontEn", "Messages")) })
+                        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel() { Name = "PasswordConfirm", ValidationType = Lib.AdvancedProperties.ValidationTypes.Required, Type = Weblib.Models.Common.Enums.TextboxType.Password, Caption = (SecurityCRM.Helpers.T.Str("Confirm password", "FrontEnd", "Confirm password"))})
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="inner-content-right">
+        <div class="edit-section">
+            <div class="edit-section-header">
+                @(SecurityCRM.Helpers.T.Str("Messages", "FrontEnd", "Messages"))
+            </div>
+            <div class="edit-section-body">
+                 <div class="info-block">            
+                @foreach (SecurityCRMLib.BusinessObjects.Message item in Model.Messages.Values)
+                {
+                    <div class="news-container">
+                        <div class="news-date"><div>@item.Date.ToString("MM.dd.yyyy")</div></div>
+                        <div class="news-title">@item.Title</div>
+                        <div class="clear"></div>
+                        <div class="text">@item.Text</div>
+                    </div>
+                }  
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clear separator"></div>
+
+</form>
+<div class="clear"></div>

@@ -1,0 +1,176 @@
+@using SecurityCRM
+@using Microsoft.AspNetCore.Http;
+@using WebLib.UI
+@using Lib.BusinessObjects
+@using Lib.Tools.Utils
+@using lib;
+@using Lib.BusinessObjects.Translations;
+
+@{
+    var context = HttpContextHelper.Current;
+    var currentLanguage = Language.Current();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-config" content="none" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/Images/favicon.png" rel="shortcut icon" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+            var gRootUrl = '@Lib.Tools.Utils.URLHelper.GetUrl("")';
+            var gCurrentLanguage = @(currentLanguage != null && currentLanguage.Id > 0 ? currentLanguage.Id : Language.Romanian.Id);
+    </script>
+    @*
+    @Styles.Render("~/styles/common")
+    @Styles.Render("~/styles/full")
+    @Styles.Render("~/styles/front_common")
+    @Styles.Render("~/styles/front_full")
+    @Styles.Render("~/styles/" + Session["Browser_specific"].ToString())
+    @Scripts.Render("~/scripts/jquerylib")
+    @Scripts.Render("~/scripts/jquery-ui")
+    @Scripts.Render("~/scripts/jquery-upload")
+    @Scripts.Render("~/scripts/jquery-download")
+    @Scripts.Render("~/scripts/d3")
+    @Scripts.Render("~/scripts/front_common")
+    @Scripts.Render("~/scripts/front_advanced")
+    @Scripts.Render("~/scripts/commonlib")
+    @Scripts.Render("~/scripts/dynamics")
+    
+    @Html.BuilderCssFiles(this.Url, ResourceLocation.Head)
+    @Html.BuilderScripts(this.Url, ResourceLocation.Head)
+    *@
+
+    <link href="~/Images/favicon.png" rel="shortcut icon" type="image/png" />
+    
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/common.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/jquery.fancybox.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-buttons.css")" rel="stylesheet" />
+    <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/helpers/jquery.fancybox-thumbs.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/themes/base/jquery-ui.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/themes/base/jquery.ui.datepicker.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/Common/full.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/jquery/tooltipster.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/jquery/tooltipster-light.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/front_common.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/Controls.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/dashboard.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/Report.css")" rel="stylesheet" />
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Content/FrontEnd/front_full.css")" rel="stylesheet"/>
+          <link href="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/select2/select2.css")" rel="stylesheet"/>
+
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery-2.1.4.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.printArea.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery-ui-1.11.4.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.tooltipster.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.mousewheel-3.0.6.pack.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fancybox.pack.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/ui.datepicker-ro.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fancybox-buttons.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/ajaxupload-v1.2.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.fileDownload.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Other_Plugins/d3.min.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Other_Plugins/Donut3D.js")"></script>
+
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/front_common.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/front_utils.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/front_advanced.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Bootstrap_Plugins/select2/select2.full.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/JQuery/jquery.printArea.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/dashboard.js")"></script>
+    <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/investigation.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/request.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/document.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/consumable.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/animal.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/procedure.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/report.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/FrontEnd/Translation/static_translation.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/translation.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/common.js")"></script>
+          <script src="@Lib.Tools.Utils.URLHelper.GetUrl("Scripts/Common/utils.js")"></script>
+    <script type="text/javascript">
+        @if (HttpContextHelper.Current.Session.GetInt32("IsSafary") == 1)
+        {
+            @:gIsSafary = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsChrome") == 1)
+        {
+            @:gIsChrome = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsFF") == 1)
+        {
+            @:gIsFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacSafary") == 1)
+        {
+            @:gIsMacSafary = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacChrome") == 1)
+        {
+            @:gIsMacChrome = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE11") == 1)
+        {
+            @:gIsIE11 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE10") == 1)
+        {
+            @:gIsIE10 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIE9") == 1)
+        {
+            @:gIsIE9 = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsAndroidFF") == 1)
+        {
+            @:gIsAndroidFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsAndroidNative") == 1)
+        {
+            @:gIsAndroidNative = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIPad") == 1)
+        {
+            @:gIsIPad = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsMacFF") == 1)
+        {
+            @:gIsMacFF = true;
+        }
+        else if (HttpContextHelper.Current.Session.GetInt32("IsIEOld") == 1)
+        {
+            @:gIsIEOld = true;
+        }
+    </script>
+</head>
+<body>
+    <img src="@Lib.Tools.Utils.URLHelper.GetUrl("/Images/Print/KFA_logo.png")" style="display:none" />
+    @Html.Partial("../Controls/_message")
+    @Html.Partial("../Layout/Standard/_Header")
+<div class="content">
+    @if (ViewData["Breadcrumbs"] != null)
+    {
+        <div class="header-breadcrumbs">
+            @foreach (var ilink in (List<Lib.Models.Common.iBaseControlModel>)ViewData["Breadcrumbs"])
+            {
+                var link = (Lib.Models.LinkModel)ilink;
+                <a href="@link.Href"
+                   @if (!string.IsNullOrEmpty(link.Class)) { @: class="@link.Class"
+                   }>@Html.Raw(link.Caption)</a>
+            }
+            <div class="clear"></div>
+        </div>
+    }
+    @RenderBody()
+</div>
+    @Html.Partial("../Layout/Standard/_Footer")
+</body>
+</html>
+

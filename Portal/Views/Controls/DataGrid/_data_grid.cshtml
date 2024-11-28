@@ -1,0 +1,19 @@
+﻿@using Weblib.Models.Common
+<div class="data-grid-container">
+<div class="data-grid" data-type="@(ViewData["Grid_Type"])">
+    <div class="data-grid-title-row">   
+        <div class="data-grid-title controls-title"><div class="data-grid-title-control">&nbsp;</div></div>   
+        <div class="data-grid-title controls-title"><div class="data-grid-title-control">ID</div></div>    
+        @foreach (var property in (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"])
+        {
+            @Html.Partial("../Controls/DataGrid/_title_row", property);
+        }          
+        <div class="data-grid-title controls-title"><div class="data-grid-title-control">@SecurityCRM.Helpers.T.Str("DateCreated", "FrontEnd", "Date created")</div></div>
+            <div class="data-grid-title controls-title"><div class="data-grid-title-control">@SecurityCRM.Helpers.T.Str("Author", "FrontEnd", "Author")</div></div>
+        </div>
+    @Html.Partial("../Controls/DataGrid/_data_row", ViewData["New_Item"] )
+    @foreach(var item in ((Dictionary<long,Lib.Tools.BO.ItemBase>)Model).Values) {
+        @Html.Partial("../Controls/DataGrid/_data_row", item);
+    }  
+</div>
+</div>

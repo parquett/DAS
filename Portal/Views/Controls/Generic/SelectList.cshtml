@@ -1,0 +1,34 @@
+﻿@model Controls.Select.Models.SelectListModel
+@using Weblib.Models.Common
+@using WebLib.UI
+@{
+    Layout = "";
+}
+<script src="~/Scripts/BackEnd/Controls/selectlist.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/selectlist.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search && Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+{
+    <div class="control-selectlist control-view">
+        @if (Model.Link != null)
+        {
+            @: @Html.Partial("../Controls/_link", Model.Link)
+        }
+        else
+        {
+            @: @Model.DropDown.ValueName
+        }
+    </div>
+}
+@if (!Model.ReadOnly)
+{
+    if (Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+    {
+        <div data-control="selectlist" class="control-selectlist control-edit@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search)?" displayblock":"")">
+            @Html.Partial("../Controls/_textbox", Model.SelectList)
+        </div>
+    }
+    else
+    {
+        @Html.Partial("../Controls/RowControl/_inputrow", Model.SelectList)
+    }
+}

@@ -1,0 +1,11 @@
+﻿@using Weblib.Models.Common
+<div class="data-grid-data-row data-grid-data-row-@(((Lib.Tools.BO.ItemBase)Model).Id)">    
+    <div class="data-grid-data">@(((Lib.Tools.BO.ItemBase)Model).Id!=0?((Lib.Tools.BO.ItemBase)Model).Id.ToString():"")</div>   
+    @foreach (Lib.AdvancedProperties.AdvancedProperty property in (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"])
+    {
+        @:<div class="data-grid-data">   
+            object lControlModel=property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue(Model), property, (Lib.Tools.BO.ItemBase)Model, false, Lib.AdvancedProperties.DisplayMode.Search);
+            @Html.PartialAsync("../Controls/Generic/"+property.ControlViewSearch,lControlModel).Result           
+        @:</div>
+    }     
+</div>

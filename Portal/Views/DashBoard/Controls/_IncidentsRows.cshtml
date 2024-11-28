@@ -1,0 +1,17 @@
+﻿@using SecurityCRMLib.BusinessObjects
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+}
+@{
+    var index = ((Dictionary<long, Lib.BusinessObjects.Incident>)ViewData["List"]).Count + (int)ViewData["DashboardListCount"];
+}
+@foreach (var incident in ((Dictionary<long, Lib.BusinessObjects.Incident>)ViewData["List"]).Values)
+{
+    <a href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel/EditItem/Incident/Lib.BusinessObjects/" + incident.Id )" target="_blank" class="data-grid-data-row">
+        <div class="data-grid-data"><b>@(incident.Id)</b></div>
+        <div class="data-grid-data">@(incident.Name)</div>
+        @*<div class="data-grid-data">@(incident.CreatedBy.ToString())</div>*@
+        <div class="data-grid-data">@(incident.DateCreated.ToString("dd.MM.yyyy HH:mm"))</div>
+        <input type="hidden" name="widgetitems" value="@(incident.Id)" />
+    </a>
+}

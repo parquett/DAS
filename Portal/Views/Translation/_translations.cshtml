@@ -1,0 +1,19 @@
+﻿@using Weblib.Models
+@using SecurityCRMLib.BusinessObjects
+@using Lib.Tools.BO
+@using Lib.Tools.Security
+@using Lib.BusinessObjects
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+    var Counter = 0;
+    var gClass = (string)ViewData["Class"];
+    var currentUser = Authentication.GetCurrentUser();
+}
+@foreach (var oItem in ((Dictionary<long, ItemBase>)ViewData["Translations"]).Values)
+{
+    var sol = (StaticTranslation)oItem;
+    ViewData["Prefix"] = Counter;
+    @Html.Partial("~/Views/Translation/_translation.cshtml", sol)
+    Counter++;
+}

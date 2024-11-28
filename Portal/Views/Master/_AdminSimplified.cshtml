@@ -1,0 +1,30 @@
+@using SecurityCRM
+@using System.Web.Optimization;
+@using Lib.BusinessObjects.Translations;
+@using WebLib.UI
+@using Lib.BusinessObjects
+@using Lib.Tools.Utils
+@{
+    var currentLanguage = Language.Current();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script type="text/javascript">
+            var gRootUrl = '@Lib.Tools.Utils.URLHelper.GetUrl("")';
+            var gCurrentLanguage = @(currentLanguage != null && currentLanguage.Id > 0 ? currentLanguage.Id : Language.Romanian.Id);
+    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    @Html.BuilderCssFiles(this.Url, ResourceLocation.Head)
+    @Html.BuilderScripts(this.Url, ResourceLocation.Head)
+</head>
+<body class="hold-transition login-page">
+    @RenderBody()
+</body>
+</html>

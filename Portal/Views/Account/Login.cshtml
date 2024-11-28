@@ -1,0 +1,64 @@
+﻿@using Lib.Tools.Utils;
+@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_Simplified.cshtml";
+}
+<div class="login-container">
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="clear-height"></div>
+        <A href="@Lib.Tools.Utils.URLHelper.GetUrl("")"><img src="~/Images/simplified/login_logo.png" class="login-logo" /></A>
+    <div class="login-body">
+        <div class="login-form form-controls">
+                @Html.Partial("../Controls/_textbox",((LoginModel)Model).Login)
+                @Html.Partial("../Controls/_textbox",((LoginModel)Model).Password)  
+                <div class="message-box"></div> 
+                <a href="/ForgotPassword/" class="forgot_pswd">@SecurityCRM.Helpers.T.Str("ForgotPassword", "FrontEnd", "Password is not entered correctly")</a>
+                <div class="login-actions">
+                    <a href="#" onclick="return doLogin()" id="doLoginButton" class="login-btn button">
+                        <div>@SecurityCRM.Helpers.T.Str("Enter", "FrontEnd", "Enter")</div>
+                    </a>
+                    <script>
+                        $(document).keypress(function (e) {
+                            if (e.which == 13) {
+                                document.getElementById("doLoginButton").click();
+                            }
+                        });
+                    </script>
+                    <div class="clear"></div>
+                </div>
+        </div>
+    </div>
+    <div class="loading"> </div>
+}
+</div>
+<div class="clear"></div>
+<div class="info-container">
+    <div class="info-left">        
+        <div class="info-title news">@SecurityCRM.Helpers.T.Str("News", "FrontEnd", "News")</div>
+       
+        <div class="info-block">            
+        @foreach (SecurityCRMLib.BusinessObjects.News item in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["News"]).Values)
+        {
+            <div class="news-container">
+                <div class="news-date"><div>@item.Date.ToString("MM.dd.yyyy")</div></div>
+                <div class="news-title">@item.Title</div>
+                <div class="clear"></div>
+                <div class="text">@Html.Raw(item.Text)</div>
+            </div>
+        }  
+        </div>
+    </div>
+    <div class="info-right">
+        <div class="info-title information">@SecurityCRM.Helpers.T.Str("Information", "FrontEnd", "Information")</div>
+        <div class="info-block">
+        @foreach (SecurityCRMLib.BusinessObjects.UsefullInfo item in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["Information"]).Values)
+        {
+            <div class="infromation-container">
+                <div class="text">@Html.Raw(item.Text)</div>
+            </div>
+        }  
+        </div>
+    </div>
+ </div>

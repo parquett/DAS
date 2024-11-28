@@ -1,0 +1,62 @@
+﻿@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_PopUp.cshtml";
+    var BOProperties = (Lib.AdvancedProperties.BoAttribute)ViewData["BOProperties"];
+    var BOType = (Type)ViewData["BOType"];
+}
+<div class="box data-item-container" data-id="0" data-type="@(ViewData["Grid_Type"])">
+    <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-@(BOProperties.Icon)"></i> @SecurityCRM.Helpers.T.Str("Add", "FrontEnd", "Add") @(BOProperties.SingleName)</h3>
+
+        <div class="class-legend"><i class="fa fa-fw fa-asterisk req-field-indicator"></i> - @SecurityCRM.Helpers.T.Str("RequiredField", "FrontEnd", "required field")</div>
+            <div class="clear"></div>
+    </div>
+    <div class="box-body no-padding">
+        <table class="table table-striped">
+            <tbody>
+                @foreach (string key in ((Dictionary<string, List<Lib.AdvancedProperties.AdvancedProperty>>)ViewData["Properties"]).Keys) 
+                {
+                    if (!string.IsNullOrEmpty(key))
+                    {
+                        @:<tr>
+                            @:<td colspan="2" class="property-group">
+                                @(key)
+                            @:</td>
+                        @:</tr>
+                        }
+                    foreach (Lib.AdvancedProperties.AdvancedProperty property in ((Dictionary<string, List<Lib.AdvancedProperties.AdvancedProperty>>)ViewData["Properties"])[key])
+                    {
+                        if (property.Common.EditTemplate != Lib.AdvancedProperties.EditTemplates.LinkItems
+                         && property.Common.EditTemplate != Lib.AdvancedProperties.EditTemplates.LinkItem)
+                        {
+                        @:<tr @if(property.Common.EditTemplate == Lib.AdvancedProperties.EditTemplates.Parent){
+                              @:style="display:none"
+                              }
+                            @:>
+                            @:<td style="width:150px">
+                                @(property.Common.DisplayName + ":")                    
+                                if (property.Validation != null && (property.Validation.ValidationType == Lib.AdvancedProperties.ValidationTypes.Required || property.Validation.ValidationType == Lib.AdvancedProperties.ValidationTypes.RegularExpressionRequired))
+                                {
+                                    <i class="fa fa-fw fa-asterisk req-field-indicator"></i>
+                                }
+                                if (!string.IsNullOrEmpty(property.Common.PropertyDescription))
+                                {
+                                    <div class="property-description">@(property.Common.PropertyDescription)</div>
+                                }
+                            @:</td>
+                            @:<td>
+                                object lControlModel=property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue(Model), property, (Lib.Tools.BO.ItemBase)Model, false, Lib.AdvancedProperties.DisplayMode.AdvancedEdit);
+                                @Html.PartialAsync("../Controls/Generic/"+property.ControlView,lControlModel).Result 
+                            @:</td>
+                        @:</tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="btn-control-container">
+            <button class="btn btn-success" onclick="save_new_item('@(ViewData["Grid_Type"])')"><i class="fa fa-save"></i> @SecurityCRM.Helpers.T.Str("Save", "FrontEnd", "Save")</button>
+        </div>
+    </div><!-- /.box-body -->
+</div>
+          

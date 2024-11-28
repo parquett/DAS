@@ -1,0 +1,24 @@
+﻿@using Weblib.Models
+@using Weblib.Models.Common
+@{
+    Layout = "~/Views/Master/_Standard.cshtml";
+}
+<div class="inner-content-area content-report" action="@Lib.Tools.Utils.URLHelper.GetUrl("Report/Search")">    
+    <div class="ajax-loading-overlay"></div>       
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)  
+    <div class="edit-section-header report-filter-section-header">
+        <div class="edit-section-header-caption">@(!string.IsNullOrEmpty((string)ViewData["Report_Name"])?ViewData["Report_Name"]:"Filter")</div>
+        @*&nbsp;> <a href="#" onclick="return ShowQueryOptions('@(ViewData["Model"])')">@AMAP.Helpers.T.Str("EditTheFieldList","FrontEnd","Edit the Field List")</a>*@
+        <a href="#" onclick="return doPrintReport()" class="edit-section-icons edit-section-print" title=@SecurityCRM.Helpers.T.Str("Print","FrontEnd","Print")></a>
+        <a href="#" onclick="return doExportExcellReport()" class="edit-section-icons edit-section-excell" title="Export Excel Report"></a>
+        <a href="#" onclick="return doExportCsvReport()" class="edit-section-icons edit-section-csv" title="Export CSV Report"></a>
+        <div class="clear"></div>
+    </div>
+    @Html.PartialAsync("../Controls/SearchGrid/_data_grid", ViewData["SearchItem"]).Result
+    <div class="search-results">
+        @Html.PartialAsync("../Controls/ReportGrid/_data_grid", ViewData["DataItems"]).Result
+    </div>
+    <input type="hidden" id="sSearch" value="@(ViewData["sSearch"])"/>
+    <div id="printArea"></div>
+</div>

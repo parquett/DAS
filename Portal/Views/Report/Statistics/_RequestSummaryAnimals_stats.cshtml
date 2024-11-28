@@ -1,0 +1,30 @@
+﻿@model  Dictionary<string, object>
+@using Lib.Tools.BO
+@using Weblib.Models.Common
+@using System.Linq;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";}
+
+<div class="data-title">
+    <table style="border: 1px solid silver;">
+        <tr>
+            <th>
+                Sector
+            </th>
+            <th style="border: 1px solid silver;">
+                Request Amount
+                </th>
+            <th style="border: 1px solid silver;">
+                Sample Amount
+                </th>
+            </tr>
+    @foreach (var item in Model)
+    { 
+    <tr>
+        <td>@item.Key</td>
+        <td style="text-align:right; border: 1px solid silver;">@(!string.IsNullOrEmpty(item.Value.ToString().Split('~')[0])? item.Value.ToString().Split('~')[0] : "0")</td>
+        <td style="text-align:right; border: 1px solid silver;">@(!string.IsNullOrEmpty(item.Value.ToString().Split('~')[0])? item.Value.ToString().Split('~')[1] : "0")</td>
+    </tr>
+    }
+        </table>
+</div>

@@ -1,0 +1,22 @@
+﻿@model Controls.Select.Models.MultyCheckModel
+@using WebLib.UI
+@{
+    Layout = ""; 
+}
+
+<script src="~/Scripts/BackEnd/Controls/MultyCheck.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/MultyCheck.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search)
+{
+    <div class="control-MultyCheck control-view">
+        @foreach(Lib.Tools.BO.ItemBase item in Model.Values.Values){
+            @item.GetName()<br/>
+        }
+    </div> 
+}
+@if (!Model.ReadOnly)
+{
+    <div data-control="MultyCheck" class="control-MultyCheck control-edit@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search)?" displayblock":"")">
+        @Html.Partial("../Controls/_multycheck", Model.MultyCheck)
+    </div>
+}

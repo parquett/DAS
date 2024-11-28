@@ -1,0 +1,14 @@
+﻿CREATE FUNCTION [dbo].[GetZoneDate]()
+RETURNS datetime
+AS
+BEGIN
+	DECLARE @UTC INT,
+	@Time DATETIME
+  
+	SELECT @UTC = kv.[Value] FROM KeyValueSetting kv WHERE kv.[Key] = 'UTC'
+	IF @UTC IS NOT NULL
+		SELECT @Time = DATEADD(HOUR, @UTC, GETUTCDATE())
+	ELSE 
+		SELECT @Time = GETDATE()
+	RETURN @Time
+END

@@ -1,0 +1,42 @@
+﻿@model StaticTranslation
+@using Weblib.Models
+@using Weblib.Models.Common
+@using Lib.Tools.BO
+@using SecurityCRMLib.BusinessObjects
+@using Lib.AdvancedProperties
+@using Lib.BusinessObjects
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+    var currentUser = Lib.Tools.Security.Authentication.GetCurrentUser();
+    var i = 0;
+    var lColumns = StaticTranslation.LoadColumns();
+}
+<div class="edit-section-table-row  translation-row translation-row-@(ViewData["Prefix"])">
+    <div class="edit-section-table-content edit-section-table-content-controls edit-section-table-content-controls-one">
+    </div>
+    <div class="edit-section-table-content" style="width: inherit">
+        @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel()
+   {
+       Name = "Key_" + ViewData["Prefix"],
+       Type = Weblib.Models.Common.Enums.TextboxType.Text,
+       ValidationType = Lib.AdvancedProperties.ValidationTypes.Required,
+       Value = Model.Key
+   })
+    </div>
+    @foreach (var language in ((Dictionary<long, ItemBase>)ViewData["Languages"]).Values)
+    {
+        <div class="edit-section-table-content col-translations-@lColumns[i].Id" style="width:inherit">
+            <div class="input-row">
+                <div class="caption input-caption"> <div class="requred-indicator">*</div>  </div>
+
+                <input type="text" autocomplete="off" data-language-id="@language.Id" name="Language_@ViewData["Prefix"]_@(language.Id)" class="input" value="@(Model.Values != null && Model.Values.Values.Any(x => ((StaticTranslationValue)x).Language == language) ? Model.Values.Values.First(x => ((StaticTranslationValue)x).Language == language).GetName() : "")" data-req="1" data-req-mess="This Field is required">
+            </div>
+        </div>
+        i++;
+    }
+    <input hidden name="TranslationId_@ViewData["Prefix"]" value="@Model.Id">
+    <button type="button" style="font-size: 15pt !important; float: right; margin-top: 18px; margin-right: 8px !important; border: 0px; height: 17px " class="control_save" onclick="saveTranslation('@ViewData["Prefix"]')"></button>
+    <button type="button" style="font-size: 15pt !important; float: right; margin-top: 18px; border: 0px; height: 17px " class="control-delete" onclick="removeTranslationRow('@ViewData["Prefix"]')"></button>
+
+</div>

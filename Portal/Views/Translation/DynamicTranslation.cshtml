@@ -1,0 +1,67 @@
+﻿@using Weblib.Models
+@using Lib.Tools.BO
+@using Weblib.Models.Common
+@using Lib.BusinessObjects
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_PopUp.cshtml";
+    var Languages = (Dictionary<long, ItemBase>)ViewData["Languages"];
+    var Translations = (Dictionary<long, ItemBase>)ViewData["Translations"];
+    var BOName = (string)ViewData["BOName"];
+    var BOId = (long)ViewData["BOId"];
+    var PropertyName = (string)ViewData["PropertyName"];
+    var Original = (string)ViewData["Original"];
+}
+<div class="box data-item-container">
+    <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-language"></i> @Original </h3>
+        <div class="clear"></div>
+    </div>
+    <div class="box-body no-padding">
+        <table class="table table-striped">
+            <tbody>
+                @foreach (var lang in Languages.Values)
+                {
+                    var Language = (Language)lang;
+                    var bRepeat = true;
+                    foreach (var trans in Translations.Values)
+                    {
+                        var Translation = (Translation)trans;
+                        if (Translation.Language == Language)
+                        {
+                            <tr>
+                                <td style="width:150px">
+                                    @Language.GetName()
+                                </td>
+                                <td>
+                                    <div data-control="input" class="control-input control-edit displayblock">
+                                        <input type="text" name="Language_@Language.Id.ToString()" value="@Translation.Value" class="input WideLabel">
+                                    </div>
+                                    <input hidden name="TranslationId" value="@Translation.Id" data-language-id="@Language.Id">
+                                </td>
+                            </tr>
+                            bRepeat = false;
+                        }
+                    }
+                    if (bRepeat)
+                    {
+                        <tr>
+                            <td style="width:150px">
+                                @Language.GetName()
+                            </td>
+                            <td>
+                                <div data-control="input" class="control-input control-edit displayblock">
+                                    <input type="text" name="Language_@Language.Id.ToString()" class="input WideLabel">
+                                    <input hidden name="TranslationId" value="0" data-language-id="@Language.Id">
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="btn-control-container">
+            <button class="btn btn-success btn-save-item" onclick="saveDynamicTranslation('@BOName', @BOId, '@PropertyName')"><i class="fa fa-save"></i> @SecurityCRM.Helpers.T.Str("Save", "FrontEnd", "Save")</button>
+        </div>
+    </div><!-- /.box-body -->
+</div>

@@ -1,0 +1,36 @@
+﻿@model Controls.Select.Models.SelectModel
+
+@using Weblib.Models.Common
+@using WebLib.UI
+@{
+    Layout = "";
+}
+
+<script src="~/Scripts/BackEnd/Controls/select.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/select.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search && Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+{
+    <div class="control-select control-view  @(Model.CssView)">
+        @if (Model.Link != null)
+        {
+            @: @Html.Partial("../Controls/_link", Model.Link)
+        }
+        else
+        {
+            @: @Model.DropDown.ValueName
+        }
+    </div>
+}
+@if (!Model.ReadOnly)
+{
+    if (Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+    {
+        <div data-control="select" class="control-select control-edit  @(Model.CssEdit)@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search)?" displayblock":"")">
+            @Html.Partial("../Controls/_dropdown", Model.DropDown)
+        </div>
+    }
+    else
+    {
+        @Html.Partial("../Controls/RowControl/_selectrow", Model.DropDown)
+    }
+}

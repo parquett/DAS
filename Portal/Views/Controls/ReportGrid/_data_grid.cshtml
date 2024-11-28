@@ -1,0 +1,85 @@
+﻿@using SecurityCRM;
+@using Weblib.Models.Common
+@using lib;
+@{
+    var Count = (long)ViewData["Count"];
+    var CountPerPage = (int)ViewData["CountPerPage"];
+    var PageNum = (int)ViewData["PageNum"];
+}
+<div class="edit-section-header report-summary-header_small">
+    <a href="#" onclick="return toggle_stat_section(this)" title="Extinde" class="edit-section-state-indicator edit-section-state-indicator-stat"></a>
+    <div class="edit-section-header-caption">@SecurityCRM.Helpers.T.Str("Statistics", "FrontEnd", "Statistics"):&nbsp;</div>
+    <b>@ViewData["ReuquestExecTime"]</b>
+    <div class="clear"></div>
+</div>
+<div class="stats-data-container data-grid-container" style="display:none">
+    @Html.Raw(ViewData["ReportWidget"])
+</div>
+
+<div class="data-grid-container">
+    <input type="hidden" id="page_num" value="@PageNum" />
+    <input type="hidden" id="sort_col" value="@(HttpContextHelper.Current.Request.HasFormContentType? HttpContextHelper.Current.Request.Form["SortCol"]:"")" />
+    <input type="hidden" id="sort_dir" value="@(HttpContextHelper.Current.Request.HasFormContentType? HttpContextHelper.Current.Request.Form["SortDir"]:"")" />
+    <!------------------------------------VIEW PER PAGE------------------------------>
+    @if (Count > 0)
+    {
+        <div class="grid-item-page">
+            <div class="grid-item-page-block">
+                <select onchange="count_per_page()" id="dpdwn_count_per_page" class="grid-item-page-ddown">
+                    <option @(CountPerPage == 10 ? "selected" : "")>10</option>
+                    <option @(CountPerPage == 25 ? "selected" : "")>25</option>
+                    <option @(CountPerPage == 50 ? "selected" : "")>50</option>
+                    <option @(CountPerPage == 100 ? "selected" : "")>100</option>
+                </select>
+                <div class="grid-item-page-ddown-text">
+                    @SecurityCRM.Helpers.T.Str("RecordsOnPage", "FrontEnd", "records on page")
+                </div>
+            </div>
+            <div class="grid-item-add-page-block">
+                <div class="grid-item-page-counter">
+                    @SecurityCRM.Helpers.T.Str("Shown", "FrontEnd", "shown") @(CountPerPage < Count ? CountPerPage : Count) @SecurityCRM.Helpers.T.Str("From", "FrontEnd", "from") @Count @SecurityCRM.Helpers.T.Str("Records", "FrontEnd", "records")
+                </div>
+            </div>
+        </div>
+    }
+    <!------------------------------------GRID--------------------------------------->
+    <div class="data-grid" data-type="@(ViewData["Grid_Type"])">
+        <div class="data-grid-title-row">
+            @foreach (Lib.AdvancedProperties.AdvancedProperty property in (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"])
+            {
+                if (property.Common.Visible == true)
+                {
+                    @Html.Partial("../Controls/ReportGrid/_title_row", property);
+                }
+            }
+        </div>
+        @foreach (var item in ((Dictionary<long, Lib.Tools.BO.ItemBase>)Model).Values)
+        {
+            @Html.Partial("../Controls/ReportGrid/_data_row", item);
+        }
+    </div>
+    @if (Count > CountPerPage)
+    {
+        <div class="main-pagination">
+            <div class="pagination-block">
+                <ul class="pagination">
+                    @if (PageNum > 1)
+                    {
+                        <li>
+                            <a href="#" onclick="return show_report_page(@((PageNum - 1).ToString()))" class="pagination-page">@SecurityCRM.Helpers.T.Str("Previous", "FrontEnd", "Previous")</a>
+                        </li>
+                    }
+
+                    @Html.Raw(ViewData["BuildPaginng"])
+
+                    @if ((PageNum) * CountPerPage <= Count)
+                    {
+                        <li>
+                            <a href="#" onclick="return show_report_page(@((PageNum + 1).ToString()))" class="pagination-page">@SecurityCRM.Helpers.T.Str("Next", "FrontEnd", "Next")</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>

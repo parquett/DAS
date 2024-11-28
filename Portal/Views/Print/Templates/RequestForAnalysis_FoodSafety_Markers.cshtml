@@ -1,0 +1,266 @@
+﻿<style type="text/css">
+    .table {
+        border-collapse: collapse;
+        margin: auto;
+    }
+
+    .td {
+        font-size: 12px;
+        vertical-align: top;
+        padding: 3px;
+        font-family: serif;
+    }
+
+    .tr {
+        height: 15px
+    }
+
+    .width100 {
+        width: 100%
+    }
+
+    .width90 {
+        width: 90%
+    }
+
+    .width82 {
+        width: 82%
+    }
+
+    .width72 {
+        width: 72%
+    }
+
+    .width60 {
+        width: 60%
+    }
+
+    .width50 {
+        width: 50%
+    }
+
+    .width40 {
+        width: 40%
+    }
+
+    .width30 {
+        width: 30%
+    }
+
+    .width20 {
+        width: 20%
+    }
+
+    .width10 {
+        width: 10%
+    }
+
+    .width3 {
+        width: 3%
+    }
+
+    .botbord1 {
+        border-bottom: 1px solid black
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .smallest {
+        font-size: 9px;
+    }
+
+    .textright {
+        text-align: right
+    }
+
+    .textcenter {
+        text-align: center
+    }
+</style>
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter td">
+                <img src="{KFA_logo}" style="height:50px; " /><br />
+                Laboratori i Ushqimit dhe Veterinaris&euml;/Laborator za Hranu i Veterinu/Food and Veterinary Laboratory<br />
+                Adresa: Zona Industriale P.N., 10000 Prishtin&euml;<br />
+                Republika e Kosov&euml;s/Republika Kosova/ Republic of Kosovo<br />
+                Web: <a href="www.auv-ks.net">www.auv-ks.net</a><br />
+                Tel: +383 ......... FSC 5.8.U-1
+            </td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap table width100">
+    <tbody>
+        <tr>
+            <td class="textcenter td"><b>K&Euml;RKES&Euml; P&Euml;R TESTIM/ZAHTEV ZA ANALIZU/REQUEST FOR ANALYSIS</b></td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="width72 table nowrap" style="">
+    <tbody>
+        <tr style="">
+            <td class="td"><b>Data</b>/Datum/Date:</td>
+            <td class="botbord1 td width20">{LaboratoryRegisterDate}</td>
+            <td class="width40 td">&nbsp;</td>
+            <td class="width20 td"><b>NR.</b>BR.No.<b>SER.</b>:</td>
+            <td class="botbord1 td width20">{NrProtocolNrSamplingBag}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1" class="width100 table" style="margin-top:3px">
+    <tbody>
+        <tr style=" height: 25px">
+            <td class="width50 td">
+                <b>Emri dhe adresa e Klientit:</b><br />
+                Ime i adresa klijenta:<br />
+                Name and address of customer:
+            </td>
+            <td class="td">{RequesterName} {RequesterAddress}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td">
+                <b>Testi i k&euml;rkuar :</b><br />
+                Trazeni test:<br />
+                Requested test :
+            </td>
+            <td class="td">{AllInvestigationTypes}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td">
+                <b>Q&euml;llimi i marrjes s&euml; mostr&euml;s/Programi:</b><br />
+                Cilj uzorkovanja/Program:<br />
+                Aim of sampling/Program:
+            </td>
+            <td class="td">{ResearchScopeSamplingGosts}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td">
+                <b>Mostra e sjellur nga:</b><br />
+                Uzorci donosi:<br />
+                Samples delivered by:
+            </td>
+            <td class="td">{SamplingResponsable}</td>
+        </tr>
+        <tr style=" height: 15px">
+            <td class="td" style="padding:1px">
+                <b>Emri i mostr&euml;s dhe sasia :</b><br />
+                Naziv uzorka i iznos:<br />
+                Name and amount of sample:
+            </td>
+            <td class="td" style="padding:1px">{AllSamplesInfo}</td>
+        </tr>
+        <tr style=" height: 25px;">
+            <td class="td">
+                <b>P&euml;rshkrimi i kushteve dhe vendit t&euml; marrjes s&euml; mostr&euml;s:</b><br />
+                Opis uzorkovanja, podrucja i uslovi:<br />
+                Desciption of sampling area and conditions :
+            </td>
+            <td class="td">{ProtocolInfo}</td>
+        </tr>
+        <tr style=" height: 25px;">
+            <td class="td" style="padding:1px">
+                <b>Raporti i testimeve duhet t&euml; d&euml;rgohet me:</b><br />
+                Test protocol treba poslati sa:<br />
+                Test protocol should be sent by:
+            </td>
+            <td class="td" style="padding:1px">
+                <table class="width100 table" style="">
+                    <tbody>
+                        <tr style="">
+                            <td class="width72 td" style=""><input style="width: 15px; height:15px!important;" value="{IsPhysCopie}" /> <b>Kopje fizike</b>/Papiru/Hard copy</td>
+                            <td class="td" style=""><input style="width: 15px; height:15px!important;" value="{IsToEmail}" /><b>E-mail</b></td>
+                        </tr>
+                        <tr style="">
+                            <td class="td" colspan="2" style="padding-bottom:0px"><b>E-mail:</b> {ToEmail}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td" style="">
+                <b>Gjendja e mostr&euml;s:</b><br />
+                Status uzoraka:<br />
+                State of the sample:
+            </td>
+            <td class="td" style="">
+                <table class="width100 table" style="">
+                    <tbody>
+                        <tr style="">
+                            <td class="td" style=""><input style="width: 15px; height:15px!important;" value="{Regular}" /> <b>E rregullt</b>/Redovan/Regular</td>
+                            <td class="td" style="">&nbsp;</td>
+                        </tr>
+                        <tr style="">
+                            <td class="td" style=""><input style="width: 15px; height:15px!important;" value="{Irregular}" /> <b>Jo e rregullt</b>/Nepravilan/Irregular</td>
+                            <td class="td" style="padding-bottom:0px">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr style=" height: 25px;">
+            <td class="td">
+                <b>Refuzimi i pranimit t&euml; mostr&euml;s:</b><br />
+                Odbijanje uzorka na prijemu:<br />
+                Refusal of sample:
+            </td>
+            <td class="td">{Rejected}</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap width50">
+    <tbody>
+        <tr class="td">
+            <td class="td botbord1">&nbsp;</td>
+        </tr>
+        <tr>
+            <td class="td"><em><b>Emri dhe n&euml;nshkrimi i klientit</b>/Ime i potpis klienta/Name and signature of client</em></td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap width50">
+    <tbody>
+        <tr>
+            <td class="td"><b>Plot&euml;sohet nga Laboratori</b>/Ispunjeni od Laboratorij/Filled by Laboratory:</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1" class="width100 table nowrap" style="margin-top:3px">
+    <tbody>
+        <tr style=" height: 25px">
+            <td class="width50 td"><b>Data e pranimit</b>/Datum prijema/Date of reception:</td>
+            <td class="td">{LaboratoryRegisterDate}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td"><b>Kodi i mostr&euml;s</b>/Kod uzorka/Sample code:</td>
+            <td class="td">{SamplesCode}</td>
+        </tr>
+        <tr style=" height: 25px">
+            <td class="td"><b>N&euml;nshkrimi</b>/Potpis/Signature:</td>
+            <td class="td">&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+&nbsp;
+
+<table class="nowrap width50">
+    <tbody>
+        <tr class="tr">
+            <td class="td"><b>V&euml;rejtje</b>/Primedba/Note:</td>
+        </tr>
+    </tbody>
+</table>

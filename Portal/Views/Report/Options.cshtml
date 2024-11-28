@@ -1,0 +1,59 @@
+﻿@using Lib.Tools.BO
+@using Weblib.Models.Common
+@using System.Linq;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+    var Properties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"];
+    var DisplayProperties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["DisplayProperties"];
+    var PrintProperties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["PrintProperties"];
+}
+
+<form id="printOptions" class="edit-section" style="margin: 0 -30px;">
+    <div class="edit-section-header">
+        Report Settings
+    </div>
+    <div class="edit-section-body" style="max-height:600px;overflow:auto;">
+        <div class="edit-section-row">
+            <div class="edit-section-row-left">
+                @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel()
+               {
+                   Type = Weblib.Models.Common.Enums.TextboxType.Label,
+                   Caption = "View"
+               })
+            </div>
+            <div class="edit-section-row-right">
+                @Html.Partial("../Controls/RowControl/_inputrow", new TextboxModel()
+               {
+                   Type = Weblib.Models.Common.Enums.TextboxType.Label,
+                   Caption = "Print"
+               })
+            </div>
+            <div class="clear"></div>
+        </div>
+        @foreach (Lib.AdvancedProperties.AdvancedProperty property in Properties)
+        {
+            <div class="edit-section-row">
+
+                <div class="edit-section-row-left">
+                    @Html.Partial("../Controls/RowControl/_checkboxrow", new CheckboxModel()
+                       {
+                           Name = "Display_"+(property).PropertyName,
+                           Caption = (property).Common.DisplayName,
+                           Checked = DisplayProperties.Exists(property.PropertyName),
+                           Value = "1"
+                       })
+                </div>
+                <div class="edit-section-row-right">
+                    @Html.Partial("../Controls/RowControl/_checkboxrow", new CheckboxModel()
+                       {
+                           Name = "Print_"+(property).PropertyName,
+                           Caption = (property).Common.PrintName,
+                           Checked = PrintProperties.Exists(property.PropertyName),
+                           Value = "1"
+                       })
+                </div>
+                <div class="clear"></div>
+            </div>
+        }
+    </div>
+</form>

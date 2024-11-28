@@ -1,0 +1,48 @@
+﻿@using Weblib.Models.Common
+@using SecurityCRMLib.BusinessObjects
+@using StaticTranslationAssembly = Lib.BusinessObjects.Translations.StaticTranslationAssembly
+@{
+    var currentPerson = Person.Current(); 
+    var currentUser = Lib.Tools.Security.Authentication.GetCurrentUser();
+
+}
+@if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.SMIAccess))
+{
+    <a title="System Management Interface" href="@Lib.Tools.Utils.URLHelper.GetUrl("systemmanagement")" class="dashboard-ico dashboard-ico-settings">
+        <div class="outer-ico">
+            <div class="inner-ico">
+                <div class="dashboard-icon">
+                    @Html.Raw(SecurityCRM.Helpers.T.Str("SMI", "DashBoard", "SMI"))
+                </div>
+            </div>
+        </div>
+    </a>
+}
+@if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.CPAccess))
+{
+    <a title="Control Panel" href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel")" class="dashboard-ico dashboard-ico-settings">
+        <div class="outer-ico">
+            <div class="inner-ico">
+                <div class="dashboard-icon">
+                    @Html.Raw(SecurityCRM.Helpers.T.Str("Settings", "DashBoard", "Settings"))
+                </div>
+            </div>
+        </div>
+    </a>
+}
+@if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.VIncident))
+{
+    <a title="Incidents List" href="@Lib.Tools.Utils.URLHelper.GetUrl("Report/IncidentList")" class="dashboard-ico dashboard-ico-reports">
+        <div class="outer-ico">
+            <div class="inner-ico">
+                <div class="dashboard-icon">
+                    @Html.Raw(SecurityCRM.Helpers.T.Str("Incidents", "DashBoard", "Incidents"))
+                    <br />
+                    @Html.Raw(SecurityCRM.Helpers.T.Str("List", "DashBoard", "List"))
+                </div>
+            </div>
+        </div>
+    </a>
+}
+<div class="clear" style="height:1px"></div>
+

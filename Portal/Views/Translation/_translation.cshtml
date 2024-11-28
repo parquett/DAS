@@ -1,0 +1,41 @@
+﻿@model StaticTranslation
+@using Lib.Tools.BO
+@using Lib.Tools.Security
+@using Lib.BusinessObjects
+@using Weblib.Models.Common
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+    var currentUser = Authentication.GetCurrentUser();
+    var i = 0;
+    var lColumns = StaticTranslation.LoadColumns();
+    var Prefix = (int)ViewData["Prefix"];
+    var Class = "translation-row translation-row-" + Prefix.ToString();
+    if (Prefix % 2 == 1)
+    {
+        Class += " th-alt";
+    }
+}
+
+<div class="edit-section-table-row @Class">
+    <div class="edit-section-table-content col-translations-key">
+        @(((int)ViewData["Prefix"]) + 1)
+    </div>
+    <div class="edit-section-table-content col-translations-key">
+        @Model.Key
+    </div>
+    @foreach (var language in (new Language().Populate()).Values)
+    {
+        var Language = (Language)language;
+        <div class="edit-section-table-content col-translations-@lColumns[i].Id">
+            @(Model.Values != null && Model.Values.Values.Any(x => ((StaticTranslationValue)x).Language == Language) ? ((StaticTranslationValue)Model.Values.Values.First(x => ((StaticTranslationValue)x).Language == Language)).Value : "")
+        </div>
+        i++;
+
+    }
+    <div class="edit-section-table-content">
+        <button type="button" style="font-size: 15pt !important;float:right;border:0px;height:17px" class="control-edit" onclick="loadTranslation('@Model.Id', '@ViewData["Prefix"]')"></button>
+        <button type="button" style="font-size: 15pt !important;float:right;border:0px;height:17px" class="control-delete" onclick="removeTranslationRow('@ViewData["Prefix"]','@Model.Id')"></button>
+    </div>
+</div>
+

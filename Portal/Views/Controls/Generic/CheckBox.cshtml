@@ -1,0 +1,21 @@
+﻿@model Controls.CheckBox.Models.CheckBoxModel
+@using WebLib.UI
+@{
+    Layout = "";
+}
+
+<script src="~/Scripts/BackEnd/Controls/CheckBox.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/CheckBox.css">
+
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search && Model.Mode != Lib.AdvancedProperties.DisplayMode.FrontEnd)
+{
+<div class="control-checkbox control-view">
+    @(Model.Value ? "Yes" : "No")
+</div> 
+}
+@if (!Model.ReadOnly)
+{
+    <div data-control="checkbox" class="control-checkbox @(Model.Mode !=Lib.AdvancedProperties.DisplayMode.FrontEnd?" control-edit":"")@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search || Model.Mode == Lib.AdvancedProperties.DisplayMode.FrontEnd)?" displayblock":"")">
+        @Html.Partial("../Controls/_checkbox", Model.Checkbox)
+    </div>    
+}

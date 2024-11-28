@@ -1,0 +1,69 @@
+﻿@using Weblib.Models
+@using SecurityCRMLib.BusinessObjects
+@using Lib.Tools.BO
+@using Lib.Tools.Security
+@using Lib.BusinessObjects
+@using Lib.BusinessObjects.Translations;
+@{
+    Layout = "~/Views/Master/_Ajax.cshtml";
+    var CurrentUser = Lib.Tools.Security.Authentication.GetCurrentUser();
+    var sID = (string)ViewData["sID"];
+    var lColumns = StaticTranslation.LoadColumns();
+    var Count = (long)ViewData["Count"];
+    var CountPerPage = (int)ViewData["iPagingLen"];
+    var PageNum = (int)ViewData["PageNum"];
+
+
+}
+
+<div class="edit-section-table">
+    <div class="edit-section-table-header" id="TranslationGridHeader">
+        <div class="edit-section-table-title edit-section-table-title-controls edit-section-table-content-controls-one">
+        </div>
+        <div class="edit-section-table-title">
+            @SecurityCRM.Helpers.T.Str("Key", "FrontEnd", "Key")
+        </div>
+
+        @for (var i = 0; i < lColumns.Count; i++)
+        {
+            <div class="edit-section-table-title col-translations-@lColumns[i].Id">
+                @lColumns[i].GetName()
+            </div>
+        }
+        <div class="edit-section-table-title">
+            <button type="button" style="font-size: 15pt !important; float: right; margin: 10px 7px -6px 7px;  font-weight: 500; color: #6c757d; min-width: 130px;" class="control-add" onclick="loadTranslation()">@SecurityCRM.Helpers.T.Str("Add new", "FrontEnd", "Add new")</button>
+        </div>
+    </div>
+        @Html.Partial("~/Views/Translation/_translations.cshtml")
+</div>
+@if (Count > CountPerPage)
+{
+    <div class="main-pagination">
+        <div class="pagination-block">
+            <ul class="pagination">
+                @if (PageNum > 1)
+                {
+                    <li>
+                        <a href="#" onclick="return show_Translation_page(@((PageNum - 1).ToString()))" class="pagination-page">@SecurityCRM.Helpers.T.Str("Previous", "FrontEnd", "Previous")</a>
+                    </li>
+                }
+
+                @Html.Raw(ViewData["BuildPaginng"])
+
+                @if ((PageNum) * CountPerPage <= Count)
+                {
+                    <li>
+                        <a href="#" onclick="return show_Translation_page(@((PageNum + 1).ToString()))" class="pagination-page">@SecurityCRM.Helpers.T.Str("Next", "FrontEnd", "Next")</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+

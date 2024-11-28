@@ -1,0 +1,28 @@
+﻿@using Weblib.Models.Common
+@{
+    var bNewTab = (bool)ViewData["NewTab"];
+    var noLink = (bool)ViewData["NoLink"];
+    var actionOnClick = (bool)ViewData["ActionOnClick"];
+
+    var url = "";
+    if (actionOnClick)
+    {
+        url = ((Lib.Tools.BO.ItemBase)Model).GetLink();
+    }
+    else
+    {
+        url = bNewTab ? "window.open('" + Lib.Tools.Utils.URLHelper.GetUrl(((Lib.Tools.BO.ItemBase)Model).GetLink()) + "')" : "window.location='" + Lib.Tools.Utils.URLHelper.GetUrl(((Lib.Tools.BO.ItemBase)Model).GetLink()) + "'";
+    }
+}
+<div @(noLink ? "" : "onclick=" + url + "") class="data-grid-data-row data-grid-data-row-@(((Lib.Tools.BO.ItemBase)Model).Id.ToString() + ((SecurityCRMLib.BusinessObjects.ReportBase)Model).getConditionalClass())">    
+    @foreach (Lib.AdvancedProperties.AdvancedProperty property in (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"])
+    {
+        if (property.Common.Visible == true)
+        { 
+            @:<div class="data-grid-data">                 
+                object lControlModel=property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue(Model), property, (Lib.Tools.BO.ItemBase)Model,true);
+                @Html.PartialAsync("../Controls/Generic/"+property.ControlView,lControlModel).Result 
+            @:</div>
+        }
+    }     
+</div>

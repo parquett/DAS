@@ -1,0 +1,14 @@
+﻿@using Weblib.Models.Common
+<textarea 
+    name="@(((TextboxModel)Model).Name)" 
+    class="@(!string.IsNullOrEmpty(((TextboxModel)Model).Class)?((TextboxModel)Model).Class:"textarea")" 
+    placeholder="@(((TextboxModel)Model).PlaceHolder)"
+    @if (((TextboxModel)Model).ValidationType != Lib.AdvancedProperties.ValidationTypes.None)
+    {
+    @:data-req="@((int)((TextboxModel)Model).ValidationType)"
+    }  
+    @if (!string.IsNullOrEmpty(Model.OnChange))
+    {
+    @:onchange="@(Model.OnChange)"
+    } 
+    >@(!string.IsNullOrEmpty(((TextboxModel)Model).Value)? ((TextboxModel)Model).Value.Trim() :"" )</textarea> 

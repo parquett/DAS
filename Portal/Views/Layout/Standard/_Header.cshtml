@@ -1,0 +1,104 @@
+﻿@using Lib.BusinessObjects.Translations;
+@using Weblib.Models.Common
+@using Lib.Models
+@using Lib.Tools.Utils
+@using Lib.BusinessObjects
+@using SecurityCRMLib.BusinessObjects
+@{
+    var currentLanguage = Language.Current();
+    var currentPerson = SecurityCRMLib.BusinessObjects.Person.Current();
+}
+<div class="header">
+    <div class="header-left">
+        <div id="start_btn">
+            <a href="@Lib.Tools.Utils.URLHelper.GetUrl("")" id="start_link">
+            </a>
+            
+        </div>
+    </div>
+    <div id="main_menu">
+        <div class="menu">
+            <div class="menu-sections">
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="header-right">
+        <div class="user-info">
+            <div class="user-info-left">
+                <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Manage")" class="user-info-username">
+                    @(currentPerson.FirstName + " " + currentPerson.LastName)
+                </A>
+                <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Manage")" class="user-info-userrole">
+                    @(Lib.Tools.Security.Authentication.GetCurrentUser().Role.Name)
+                </A>
+            </div>
+            <div class="user-info-right">
+                @{
+                    var Messages_Count = SecurityCRMLib.BusinessObjects.User.Populate(Lib.Tools.Security.Authentication.GetCurrentUser()).Messages.Count;
+                }
+                <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Manage")" class="user-info-message">
+                    @if (Messages_Count > 1)
+                    {
+                        <div class="user-info-messages-count">
+                            @(Messages_Count)
+                        </div>
+                    }
+                </A>
+            </div>
+        </div>
+
+        
+        @if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.CPAccess))
+        {
+            <div class="header__icon-container">
+                <a title="Control Panel" href="@Lib.Tools.Utils.URLHelper.GetUrl("controlpanel")" class="icon-container__icon icon-container__icon-cp"></a>
+            </div>
+        }
+        @if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.SMIAccess))
+        {
+            <div class="header__icon-container">
+                <a title="System Management Interface" href="@Lib.Tools.Utils.URLHelper.GetUrl("systemmanagement")" class="icon-container__icon icon-container__icon-smi"></a>
+            </div>
+        }
+
+
+    <div class="header-control">
+            @Html.PartialAsync("../Controls/_textbox", new Weblib.Models.Common.TextboxModel() { Name = "global_searh", OnType = "search_on_enter(this,event)" }).Result
+        @{
+            var SearchPage = "RequestRegister";
+            //if ((Lib.Tools.Security.Authentication.GetCurrentUser().Role == Lib.BusinessObjects.Role.HeadDepartment || Lib.Tools.Security.Authentication.GetCurrentUser().Role == Lib.BusinessObjects.Role.laboratoryStaff) && currentPerson.Laboratories.Values.Any(x => (Laboratory)x == Laboratory.AnimalHealth))
+            //{
+            //    SearchPage = "RequestInvestigationTypeList";
+            //}
+            //if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)Lib.BusinessObjects.AMAP.ApiContracts.Enums.Permissions.AccessInvestigations))
+            //{
+            //    SearchPage = "SectionPage";
+            //}
+        }
+        <A href="#" onclick="return doSearch('@SearchPage')" id="search-btn" class="header-btn"></A>
+        <div href="#" id="lang-btn" onclick="return toggleLang()" class="header-btn">
+            @(currentLanguage.ShortName)
+            <ul id="lang-list">
+                @if (ViewData["Languages"] != null)
+                {
+                    @foreach (var lang in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["Languages"]).Values.Reverse())
+                    {
+                        <li>
+                            <a href="#" onclick="return changeLanguage(@(lang.Id))">@(
+                        ((Language)lang).ShortName
+                        )</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+
+            <div class="clear"></div>
+
+            <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Documents\\User_manual__Admin_AMAP.pdf")" target="_blank" id="help-btn" class="header-btn"></A>
+            @Html.PartialAsync("../Controls/_button", new Weblib.Models.Common.ButtonModel() { Name = "logout", Text = "Exit", Href = Lib.Tools.Utils.URLHelper.GetUrl("Account\\LogOff\\"), PredefinedIcon = Weblib.Models.Common.Icon.Logout }).Result
+        </div>
+    </div>
+</div>

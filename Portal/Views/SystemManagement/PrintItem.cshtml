@@ -1,0 +1,24 @@
+﻿@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_Print.cshtml";
+    var BOProperties = (Lib.AdvancedProperties.BoAttribute)ViewData["BOProperties"];
+    var Properties = (Lib.AdvancedProperties.AdvancedProperties)ViewData["Properties"];
+    var BOType = (Type)ViewData["BOType"];
+}      
+<h1 class="print-report-caption"><i class="fa fa-@(BOProperties.Icon)"></i> @(BOProperties.SingleName)</h1>
+<table>
+    <tr>
+        @foreach (Lib.AdvancedProperties.AdvancedProperty property in Properties)
+        {
+             @:<tr>
+                 @:<td>
+                    @: @(property.Common.DisplayName)
+                 @:</td>                
+                @:<td>
+                    @*Html.RenderAction(property.ControlView, property.Control, new { model = property.GetDataProcessor().SetValue(property.PropertyDescriptor.GetValue((Lib.Tools.BO.ItemBase)Model), property, (Lib.Tools.BO.ItemBase)Model,true) });*@
+                @:</td>
+             @:</tr>
+        }
+    </tr>
+</table>
+<div class="print-end"></div>

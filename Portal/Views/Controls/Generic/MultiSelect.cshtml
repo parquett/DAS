@@ -1,0 +1,23 @@
+﻿@model Controls.Select.Models.SelectModel
+@using WebLib.UI
+@{
+    Layout = "";
+}
+
+<script src="~/Scripts/BackEnd/Controls/multyselect.js"></script>
+<link rel="stylesheet" href="~/Content/BackEnd/Controls/multyselect.css">
+@if (Model.Mode != Lib.AdvancedProperties.DisplayMode.AdvancedEdit && Model.Mode != Lib.AdvancedProperties.DisplayMode.Search)
+{
+    <div class="control-multyselect control-view">   
+        @foreach (Lib.Tools.BO.ItemBase item in Model.DropDown.Values.Values)
+        {
+            @(item.GetName())@:,
+        }
+    </div> 
+}
+@if (!Model.ReadOnly)
+{
+    <div data-control="multyselect" class="control-multyselect control-edit@((Model.Mode == Lib.AdvancedProperties.DisplayMode.AdvancedEdit || Model.Mode == Lib.AdvancedProperties.DisplayMode.Search)?" displayblock":"")">
+        @Html.Partial("../Controls/_dropdown", Model.DropDown)
+    </div>
+}

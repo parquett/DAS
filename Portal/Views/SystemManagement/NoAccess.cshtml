@@ -1,0 +1,25 @@
+﻿@using Weblib.Models
+@{
+    Layout = "~/Views/Master/_SuperAdmin.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        @SecurityCRM.Helpers.T.Str("AccesDenied", "FrontEnd", "Acces denied")
+        <small> @SecurityCRM.Helpers.T.Str("ControlPanel", "FrontEnd", "Control Panel")</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="@Lib.Tools.Utils.URLHelper.GetUrl("SystemManagement/DashBoard/")"><i class="fa fa-dashboard"></i> @SecurityCRM.Helpers.T.Str("Dashboard", "FrontEnd", "Dashboard")</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="alert alert-danger alert-dismissable">
+        <h4><i class="icon fa fa-ban"></i> @SecurityCRM.Helpers.T.Str("NoAccess", "FrontEnd", "No access")!</h4>
+        @SecurityCRM.Helpers.T.Str("NoAccessObject", "FrontEnd", "No Access to this data object") <br />
+        <a href="@Lib.Tools.Utils.URLHelper.GetUrl("SystemManagement/DashBoard/")"> @SecurityCRM.Helpers.T.Str("BackToDashboard", "FrontEnd", "Back to Dashboard")</a>
+    </div>
+
+</section>
+
