@@ -31,9 +31,8 @@ namespace SecurityCRM.Controllers
     using Microsoft.AspNetCore.Mvc.ViewEngines;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// The account controller.
-    /// </summary>
+    using Microsoft.AspNetCore.Http; // For CookieOptions, HttpOnly, SameSiteMode
+
     public class AccountController : SecurityCRMweblib.Controllers.AccountWebController
     {
         public AccountController(ICompositeViewEngine viewEngine) : base(viewEngine)
@@ -107,6 +106,18 @@ namespace SecurityCRM.Controllers
                 //    return this.Json(new RequestResult() { Message = "Parola curenta nu este corecta", Result = RequestResultType.Fail, ErrorFields = errorFields });
                 //    // return this.Json(new RequestResult() { Result = RequestResultType.Fail, Message = "Parola nu a fost modificata!" });
                 //}
+
+                // Set a secure cookie for the user
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true, // Prevents JavaScript access (XSS protection)
+                    Secure = true,   // Only send over HTTPS
+                    SameSite = SameSiteMode.Strict // Prevents CSRF attacks by restricting cross-site requests
+                };
+                Response.Cookies.Append("UserSession", "SomeValueRelatedToUser", cookieOptions); // Example of setting a cookie
+
+                // Optionally, you can return success or redirect
+                return this.Json(new RequestResult() { Result = RequestResultType.Success, Message = "Password updated successfully and cookie set." });
             }
             else
             {
