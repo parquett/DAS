@@ -12,6 +12,7 @@
     <div class="header-left">
         <div id="start_btn">
             <a href="@Lib.Tools.Utils.URLHelper.GetUrl("")" id="start_link">
+                <img src="@Lib.Tools.Utils.URLHelper.GetUrl("Images/simplified/logo.png")" alt="Start" style="width:200px; height:40px; margin-top:10px"/>
             </a>
             
         </div>
@@ -27,7 +28,7 @@
     <div class="header-right">
         <div class="user-info">
             <div class="user-info-left">
-                <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Manage")" class="user-info-username">
+                <A class="user-info-username">
                     @(currentPerson.FirstName + " " + currentPerson.LastName)
                 </A>
                 <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Account/Manage")" class="user-info-userrole">
@@ -77,27 +78,8 @@
             //    SearchPage = "SectionPage";
             //}
         }
-        <A href="#" onclick="return doSearch('@SearchPage')" id="search-btn" class="header-btn"></A>
-        <div href="#" id="lang-btn" onclick="return toggleLang()" class="header-btn">
-            @(currentLanguage.ShortName)
-            <ul id="lang-list">
-                @if (ViewData["Languages"] != null)
-                {
-                    @foreach (var lang in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["Languages"]).Values.Reverse())
-                    {
-                        <li>
-                            <a href="#" onclick="return changeLanguage(@(lang.Id))">@(
-                        ((Language)lang).ShortName
-                        )</a>
-                        </li>
-                    }
-                }
-            </ul>
-        </div>
-
             <div class="clear"></div>
 
-            <A href="@Lib.Tools.Utils.URLHelper.GetUrl("Documents\\User_manual__Admin_AMAP.pdf")" target="_blank" id="help-btn" class="header-btn"></A>
             @Html.PartialAsync("../Controls/_button", new Weblib.Models.Common.ButtonModel() { Name = "logout", Text = "Exit", Href = Lib.Tools.Utils.URLHelper.GetUrl("Account\\LogOff\\"), PredefinedIcon = Weblib.Models.Common.Icon.Logout }).Result
         </div>
     </div>
