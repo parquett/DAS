@@ -31,6 +31,14 @@ namespace SecurityCRM
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddSession();
+
+            // Adding Antiforgery with custom options
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "X-CSRF-TOKEN"; // Name of the CSRF cookie
+                options.HeaderName = "X-CSRF-TOKEN";  // Token header name for AJAX requests
+            });
+
             services.AddMemoryCache();
             services.AddMvc();
             services.AddHttpContextAccessor();
@@ -48,37 +56,6 @@ namespace SecurityCRM
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: null,
-            //        template: "{category}/Page{page:int}",
-            //        defaults: new { controller = "Product", action = "List" }
-            //        );
-
-            //    routes.MapRoute(
-            //        name: null,
-            //        template: "Page{page:int}",
-            //        defaults: new { controller = "Product", action = "List", page = 1 }
-            //        );
-
-            //    routes.MapRoute(
-            //        name: null,
-            //        template: "{category}",
-            //        defaults: new { controller = "Product", action = "List", page = 1 }
-            //        );
-
-            //    routes.MapRoute(
-            //        name: null,
-            //        template: "",
-            //        defaults: new { controller = "Product", action = "List", page = 1 }
-            //        );
-
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Product}/{action=List}/{id?}"
-            //        );
-            //});
 
             app.UseRouting();
             //app.UseAuthorization();
