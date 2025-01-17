@@ -29,7 +29,19 @@ namespace SecurityCRM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins", builder =>
+                {
+                    builder.WithOrigins("https://trusted-origin.com")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
             services.AddSession();
 
             // Adding Antiforgery with custom options
@@ -39,11 +51,19 @@ namespace SecurityCRM
                 options.HeaderName = "X-CSRF-TOKEN";  // Token header name for AJAX requests
             });
 
+            services.AddAuthentication("CookieAuth")
+                    .AddCookie("CookieAuth", options =>
+                    {
+                        options.Cookie.HttpOnly = true;
+                        options.LoginPath = "/Account/Login";
+                        options.AccessDeniedPath = "/Account/AccessDenied";
+                    });
+
             services.AddMemoryCache();
             services.AddMvc();
             services.AddHttpContextAccessor();
             services.AddDistributedMemoryCache();
-            services.AddSession();  
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,22 +73,44 @@ namespace SecurityCRM
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+
+            // Add Content Security Policy (CSP) Middleware
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Content-Security-Policy",
+            //        "default-src 'self'; " +
+            //        "script-src 'self' https://trusted-scripts.com; " +
+            //        "style-src 'self' https://trusted-styles.com; " +
+            //        "img-src 'self' data:; " +
+            //        "connect-src 'self';");
+            //    await next();
+            //});
+
+            app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseRouting();
+            app.UseCors("AllowSpecificOrigins");
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseSession();
+
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
 
-            app.UseRouting();
-            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=DashBoard}/{action=Index}");
             });
-        }
-
-        private void ConfigureMvcOptions(MvcOptions mvcOptions)
-        { 
         }
     }
 }
