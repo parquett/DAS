@@ -19,7 +19,6 @@ namespace SecurityCRMLib.BusinessObjects
 
     [Serializable]
     [Bo(Group = AdminAreaGroupenum.Settings
-      , ModulesAccess = (long)(Modulesenum.ControlPanel)
       , DisplayName = "Information"
       , SingleName = "Info")]
     public class UsefullInfo : ItemBase

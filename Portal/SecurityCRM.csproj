@@ -149,7 +149,6 @@
     <None Include="wwwroot\Content\BackEnd\skins\_all-skins.min.css" />
     <None Include="wwwroot\Content\Common\common.css" />
     <None Include="wwwroot\Content\Common\full.css" />
-    <None Include="wwwroot\Content\Common\simplified.css" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.ttf" />

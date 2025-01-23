@@ -18,18 +18,6 @@
         </div>
     </a>
 }
-@if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.CPAccess))
-{
-    <a title="Control Panel" href="@Lib.Tools.Utils.URLHelper.GetUrl("ControlPanel")" class="dashboard-ico dashboard-ico-settings">
-        <div class="outer-ico">
-            <div class="inner-ico">
-                <div class="dashboard-icon">
-                    @Html.Raw(SecurityCRM.Helpers.T.Str("Settings", "DashBoard", "Settings"))
-                </div>
-            </div>
-        </div>
-    </a>
-}
 @if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.VIncident))
 {
     <a title="Incidents List" href="@Lib.Tools.Utils.URLHelper.GetUrl("Report/IncidentList")" class="dashboard-ico dashboard-ico-reports">

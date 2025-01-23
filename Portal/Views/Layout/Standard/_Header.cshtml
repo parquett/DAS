@@ -51,12 +51,6 @@
         </div>
 
         
-        @if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.CPAccess))
-        {
-            <div class="header__icon-container">
-                <a title="Control Panel" href="@Lib.Tools.Utils.URLHelper.GetUrl("controlpanel")" class="icon-container__icon icon-container__icon-cp"></a>
-            </div>
-        }
         @if (Lib.Tools.Security.Authentication.GetCurrentUser().HasAtLeastOnePermission((long)SecurityCRM.ApiContracts.Enums.Permissions.SMIAccess))
         {
             <div class="header__icon-container">

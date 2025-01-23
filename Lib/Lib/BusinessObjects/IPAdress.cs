@@ -18,7 +18,6 @@ namespace Lib.BusinessObjects
     using System.Collections.Generic;
 
     [Bo(Group = AdminAreaGroupenum.IPAdress
-      , ModulesAccess = (long)(Modulesenum.ControlPanel)
       , DisplayName = "IPAdress"
       , SingleName = "IPAdress"
       , LogRevisions = true)]

@@ -29,19 +29,19 @@ namespace SecurityCRM
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigins", builder =>
-                {
-                    builder.WithOrigins("https://trusted-origin.com")
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
-            });
+            //services.AddControllersWithViews(options =>
+            //{
+            //    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            //});
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigins", builder =>
+            //    {
+            //        builder.WithOrigins("https://trusted-origin.com")
+            //               .AllowAnyHeader()
+            //               .AllowAnyMethod();
+            //    });
+            //});
             services.AddSession();
 
             // Adding Antiforgery with custom options
@@ -51,13 +51,13 @@ namespace SecurityCRM
                 options.HeaderName = "X-CSRF-TOKEN";  // Token header name for AJAX requests
             });
 
-            services.AddAuthentication("CookieAuth")
-                    .AddCookie("CookieAuth", options =>
-                    {
-                        options.Cookie.HttpOnly = true;
-                        options.LoginPath = "/Account/Login";
-                        options.AccessDeniedPath = "/Account/AccessDenied";
-                    });
+            //services.AddAuthentication("CookieAuth")
+            //        .AddCookie("CookieAuth", options =>
+            //        {
+            //            options.Cookie.HttpOnly = true;
+            //            options.LoginPath = "/Account/Login";
+            //            options.AccessDeniedPath = "/Account/AccessDenied";
+            //        });
 
             services.AddMemoryCache();
             services.AddMvc();
@@ -73,37 +73,39 @@ namespace SecurityCRM
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-
-            // Add Content Security Policy (CSP) Middleware
-            //app.Use(async (context, next) =>
+            //else
             //{
-            //    context.Response.Headers.Add("Content-Security-Policy",
-            //        "default-src 'self'; " +
-            //        "script-src 'self' https://trusted-scripts.com; " +
-            //        "style-src 'self' https://trusted-styles.com; " +
-            //        "img-src 'self' data:; " +
-            //        "connect-src 'self';");
-            //    await next();
-            //});
+            //    app.UseExceptionHandler("/Home/Error");
+            //    app.UseHsts();
+            //}
 
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-            app.UseRouting();
-            app.UseCors("AllowSpecificOrigins");
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseSession();
+            //app.UseHttpsRedirection();
+
+            //// Add Content Security Policy (CSP) Middleware
+            ////app.Use(async (context, next) =>
+            ////{
+            ////    context.Response.Headers.Add("Content-Security-Policy",
+            ////        "default-src 'self'; " +
+            ////        "script-src 'self' https://trusted-scripts.com; " +
+            ////        "style-src 'self' https://trusted-styles.com; " +
+            ////        "img-src 'self' data:; " +
+            ////        "connect-src 'self';");
+            ////    await next();
+            ////});
+
+            //app.UseStaticFiles();
+            //app.UseCookiePolicy();
+            //app.UseRouting();
+            //app.UseCors("AllowSpecificOrigins");
+            //app.UseAuthentication();
+            //app.UseAuthorization();
+            //app.UseSession();
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
+
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
@@ -111,6 +113,11 @@ namespace SecurityCRM
                     name: "default",
                     pattern: "{controller=DashBoard}/{action=Index}");
             });
+
+
+        }
+        private void ConfigureMvcOptions(MvcOptions mvcOptions)
+        {
         }
     }
 }
