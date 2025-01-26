@@ -102,6 +102,24 @@ namespace SecurityCRM
             //app.UseSession();
 
             app.UseStatusCodePages();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Remove("Server");
+                await next();
+            });
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Content-Security-Policy",
+            //        "default-src 'self'; " +
+            //        "script-src 'self'; " +
+            //        "style-src 'self'; " +
+            //        "img-src 'self' data:; " +
+            //        "connect-src 'self';");
+            //    await next();
+            //});
+
             app.UseStaticFiles();
             app.UseSession();
 
