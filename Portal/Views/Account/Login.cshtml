@@ -33,32 +33,3 @@
     <div class="loading"> </div>
 }
 </div>
-<div class="clear"></div>
-<div class="info-container">
-    <div class="info-left">        
-        <div class="info-title news">@SecurityCRM.Helpers.T.Str("News", "FrontEnd", "News")</div>
-       
-        <div class="info-block">            
-        @foreach (SecurityCRMLib.BusinessObjects.News item in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["News"]).Values)
-        {
-            <div class="news-container">
-                <div class="news-date"><div>@item.Date.ToString("MM.dd.yyyy")</div></div>
-                <div class="news-title">@item.Title</div>
-                <div class="clear"></div>
-                <div class="text">@Html.Raw(item.Text)</div>
-            </div>
-        }  
-        </div>
-    </div>
-    <div class="info-right">
-        <div class="info-title information">@SecurityCRM.Helpers.T.Str("Information", "FrontEnd", "Information")</div>
-        <div class="info-block">
-        @foreach (SecurityCRMLib.BusinessObjects.UsefullInfo item in ((Dictionary<long, Lib.Tools.BO.ItemBase>)ViewData["Information"]).Values)
-        {
-            <div class="infromation-container">
-                <div class="text">@Html.Raw(item.Text)</div>
-            </div>
-        }  
-        </div>
-    </div>
- </div>

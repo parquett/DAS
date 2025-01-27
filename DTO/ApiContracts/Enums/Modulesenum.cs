@@ -10,7 +10,6 @@
         /// <summary>
         /// Control Panel.
         /// </summary>
-        ControlPanel = 1,
         
         /// <summary>
         /// System Management Interface.

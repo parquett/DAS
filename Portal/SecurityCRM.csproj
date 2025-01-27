@@ -149,7 +149,6 @@
     <None Include="wwwroot\Content\BackEnd\skins\_all-skins.min.css" />
     <None Include="wwwroot\Content\Common\common.css" />
     <None Include="wwwroot\Content\Common\full.css" />
-    <None Include="wwwroot\Content\Common\simplified.css" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.eot" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -1172,8 +1171,10 @@
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\ionslider\ion.rangeSlider.skinNice.css" />
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\jQueryUI\jquery-ui.js" />
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\jQueryUI\jquery-ui.min.js" />
-    <None Include="wwwroot\Scripts\Bootstrap_Plugins\jQuery\jQuery-2.1.4.min.js" />
-    <None Include="wwwroot\Scripts\Bootstrap_Plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
+    
+	<None Include="wwwroot\Scripts\Bootstrap_Plugins\jQuery\jQuery-3.7.1.min.js" />
+
+	<None Include="wwwroot\Scripts\Bootstrap_Plugins\jvectormap\jquery-jvectormap-1.2.2.css" />
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\jvectormap\jquery-jvectormap-1.2.2.min.js" />
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
     <None Include="wwwroot\Scripts\Bootstrap_Plugins\knob\jquery.knob.js" />
@@ -1260,7 +1261,6 @@
     <None Include="wwwroot\Scripts\FrontEnd\request.js" />
     <None Include="wwwroot\Scripts\FrontEnd\Translation\static_translation.js" />
     <None Include="wwwroot\Scripts\JQuery\ajaxupload-v1.2.js" />
-    <None Include="wwwroot\Scripts\JQuery\jquery-2.1.4.js" />
     <None Include="wwwroot\Scripts\JQuery\jquery-ui-1.11.4.js" />
     <None Include="wwwroot\Scripts\JQuery\jquery.ckeditor.js" />
     <None Include="wwwroot\Scripts\JQuery\jquery.fancybox-buttons.js" />

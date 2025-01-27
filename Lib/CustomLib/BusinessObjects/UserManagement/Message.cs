@@ -23,7 +23,6 @@ namespace SecurityCRMLib.BusinessObjects
 
     [Serializable]
     [Bo(Group = AdminAreaGroupenum.Settings
-      , ModulesAccess = (long)(Modulesenum.ControlPanel)
       , DisplayName = "Message"
       , SingleName = "Message")]
     public class Message : ItemBase

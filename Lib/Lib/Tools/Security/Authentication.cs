@@ -322,12 +322,6 @@ namespace Lib.Tools.Security
 
                             switch (module)
                             {
-                                case Modulesenum.ControlPanel:
-                                    if (!user.HasPermissions((long)BasePermissionenum.CPAccess))
-                                    {
-                                        return false;
-                                    }
-                                    break;
 
                                 case Modulesenum.SMI:
                                     if (!user.HasPermissions((long)BasePermissionenum.SMIAccess))
